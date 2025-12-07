@@ -7,7 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class CoreService {
   // Zugriff auf die Firestore-Instanz
   // Damit greifen wir auf die Datenbank zu.
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final FirebaseFirestore _coreService = FirebaseFirestore.instance;
 
   // --- HILFSFUNKTIONEN FÜR REPOSITORIES ---
 
@@ -15,7 +15,7 @@ class CoreService {
   Future<QuerySnapshot<Map<String, dynamic>>> getCollection({
     required String path,
   }) async {
-    return _db.collection(path).get();
+    return _coreService.collection(path).get();
   }
 
   // Holt ein einzelnes Document von einem Container bzw. einer Collection
@@ -23,7 +23,7 @@ class CoreService {
     required String path,
     required String docId,
   }) async {
-    return _db.collection(path).doc(docId).get();
+    return _coreService.collection(path).doc(docId).get();
   }
 
   // --- CRUD OPERATIONEN ---
@@ -33,7 +33,7 @@ class CoreService {
     required String path,
     required Map<String, dynamic> data,
   }) async {
-    return _db.collection(path).add(data);
+    return _coreService.collection(path).add(data);
   }
 
   // SET: Aktualisiert oder überschreibt ein existierendes Dokument mit bekannter ID.
@@ -43,7 +43,7 @@ class CoreService {
     required Map<String, dynamic> data,
   }) async {
     // set() überschreibt das gesamte Dokument oder erstellt es, falls es nicht existiert.
-    await _db.collection(path).doc(docId).set(data);
+    await _coreService.collection(path).doc(docId).set(data);
   }
 
   // UPDATE: Aktualisiert nur einzelne Felder eines existierenden Dokuments.
@@ -52,7 +52,7 @@ class CoreService {
     required String docId,
     required Map<String, dynamic> data,
   }) async {
-    await _db.collection(path).doc(docId).update(data);
+    await _coreService.collection(path).doc(docId).update(data);
   }
 
   // DELETE: Löscht ein Dokument.
@@ -60,7 +60,7 @@ class CoreService {
     required String path,
     required String docId,
   }) async {
-    await _db.collection(path).doc(docId).delete();
+    await _coreService.collection(path).doc(docId).delete();
   }
 
   // --- STREAMING (Echtzeit-Updates) ---
@@ -69,7 +69,7 @@ class CoreService {
   Stream<QuerySnapshot<Map<String, dynamic>>> streamCollection({
     required String path,
   }) {
-    return _db.collection(path).snapshots();
+    return _coreService.collection(path).snapshots();
   }
 
   // Stellt einen Stream für ein einzelnes Dokument bereit.
@@ -77,6 +77,6 @@ class CoreService {
     required String path,
     required String docId,
   }) {
-    return _db.collection(path).doc(docId).snapshots();
+    return _coreService.collection(path).doc(docId).snapshots();
   }
 }

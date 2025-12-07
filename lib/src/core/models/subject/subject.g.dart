@@ -7,11 +7,11 @@ part of 'subject.dart';
 // **************************************************************************
 
 _Subject _$SubjectFromJson(Map<String, dynamic> json) => _Subject(
-  email: json['email'] as String,
-  username: json['username'] as String,
+  subject: json['subject'] as String,
+  createdAt: _fromJson(json['createdAt'] as Timestamp),
 );
 
 Map<String, dynamic> _$SubjectToJson(_Subject instance) => <String, dynamic>{
-  'email': instance.email,
-  'username': instance.username,
+  'subject': instance.subject,
+  'createdAt': _toJson(instance.createdAt),
 };

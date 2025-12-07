@@ -47,8 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
               itemCount: subjects.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(subjects[index].email),
-                  subtitle: Text(subjects[index].username),
+                  title: Text(subjects[index].subject),
+                  subtitle: Text(
+                    subjects[index].createdAt.toString(),
+                  ),
                 );
               },
             );

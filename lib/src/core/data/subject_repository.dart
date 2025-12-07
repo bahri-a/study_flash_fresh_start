@@ -7,16 +7,17 @@ class SubjectRepository {
   SubjectRepository(this._coreService);
 
   Future<List<Subject>> getSubjects() async {
-    final rohdaten = await _coreService.getCollection(path: 'users');
+    final rohdaten = await _coreService.getCollection(
+      path: 'users/dhF552aPp7Os9JhPBNQD/subjects',
+    );
+    final rohdatenDocs = rohdaten.docs;
 
-    print("Dokumentenanzahl: ${rohdaten.docs.length}");
-
-    final finalSubjects = rohdaten.docs.map((e) {
+    final subjects = rohdatenDocs.map((e) {
       final data = e.data();
-      print("Daten aus Firebase: $data");
       return Subject.fromJson(data);
     }).toList();
 
-    return finalSubjects;
+    print(subjects);
+    return subjects;
   }
 }
