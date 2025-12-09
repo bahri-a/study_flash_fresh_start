@@ -1,4 +1,4 @@
-import 'package:study_flash/src/core/core_service.dart';
+import 'package:study_flash/services/core_service.dart';
 import 'package:study_flash/src/core/models/subject/subject.dart';
 
 class SubjectRepository {

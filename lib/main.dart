@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:study_flash/src/features/home/presentation/home_screen.dart';
+import 'package:go_router/go_router.dart';
+import 'package:study_flash/my_go_router.dart';
+import 'package:study_flash/src/features/login/login_screen.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final GoRouter _router = myGoRouter();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,7 +15,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(MainApp());
+  runApp(const ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -18,6 +23,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Scaffold(body: HomeScreen()));
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      routerConfig: _router,
+    );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:study_flash/src/core/core_service.dart';
+import 'package:study_flash/services/core_service.dart';
 import 'package:study_flash/src/core/data/subject_repository.dart';
 
 class HomeScreen extends StatefulWidget {

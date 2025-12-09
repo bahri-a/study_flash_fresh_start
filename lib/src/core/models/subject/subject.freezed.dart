@@ -15,9 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Subject {
 
-//required String id,
-//required String userId,
-//
+//Todo: Weitere Variablen im Verlauf hinzufügen
  String get subject;// Wir nutzen @JsonKey statt @TimestampConverter
 // Das sagt: "Nimm _fromJson zum Lesen und _toJson zum Schreiben"
 @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime get createdAt;
@@ -218,9 +216,7 @@ class _Subject implements Subject {
   const _Subject({required this.subject, @JsonKey(fromJson: _fromJson, toJson: _toJson) required this.createdAt});
   factory _Subject.fromJson(Map<String, dynamic> json) => _$SubjectFromJson(json);
 
-//required String id,
-//required String userId,
-//
+//Todo: Weitere Variablen im Verlauf hinzufügen
 @override final  String subject;
 // Wir nutzen @JsonKey statt @TimestampConverter
 // Das sagt: "Nimm _fromJson zum Lesen und _toJson zum Schreiben"
