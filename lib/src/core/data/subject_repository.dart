@@ -17,7 +17,6 @@ class SubjectRepository {
       return Subject.fromJson(data);
     }).toList();
 
-    print(subjects);
     return subjects;
   }
 }

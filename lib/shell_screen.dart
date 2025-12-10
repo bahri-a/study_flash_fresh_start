@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:study_flash/constants/Widgets/drawer_menu.dart';
 import 'package:study_flash/constants/Widgets/my_navigation_bar.dart';
+import 'package:study_flash/providers/auth_provider.dart';
 
-class ShellScreen extends StatelessWidget {
+class ShellScreen extends ConsumerWidget {
   const ShellScreen({
     super.key,
     required this.navigationShell, // 1. Der "Inhalt" von GoRouter
@@ -26,37 +28,24 @@ class ShellScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       drawer: DrawerMenu(), // Dein Drawer lebt jetzt hier
       // Das AppBar lebt jetzt hier
       appBar: AppBar(
-        toolbarHeight: 50,
+        toolbarHeight: 75,
         // 2. Titel dynamisch setzen
         title: Text(
           _getTitleForIndex(navigationShell.currentIndex),
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
         ),
         actions: [
-          // Dein Dark-Mode-Button lebt jetzt hier
-          // Padding(
-          //   padding: const EdgeInsets.only(right: 20),
-          //   child: IconButton(
-          //     onPressed: () {
-          //       isDarkModeNotifier.value = !isDarkModeNotifier.value;
-          //     },
-          //     icon: ValueListenableBuilder(
-          //       valueListenable: isDarkModeNotifier,
-          //       builder: (context, isDarkMode, child) {
-          //         return Icon(
-          //           isDarkMode
-          //               ? Icons.light_mode_outlined
-          //               : Icons.dark_mode_outlined,
-          //         );
-          //       },
-          //     ),
-          //   ),
-          // ),
+          IconButton(
+            onPressed: () {
+              ref.read(authRepositoryProvider).signOut();
+            },
+            icon: const Icon(Icons.login_outlined),
+          ),
         ],
       ),
 

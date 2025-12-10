@@ -1,63 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:study_flash/services/core_service.dart';
-import 'package:study_flash/src/core/data/subject_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:study_flash/providers/subject_provider.dart';
+import 'package:study_flash/src/features/home/presentation/widgets/create_box.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  late final SubjectRepository repository;
+class HomeScreen extends ConsumerWidget {
+  HomeScreen({super.key});
 
   @override
-  void initState() {
-    super.initState();
-    repository = SubjectRepository(CoreService());
-  }
+  Widget build(BuildContext context, WidgetRef ref) {
+    final subjects = ref.watch(subjectsListProvider);
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: FutureBuilder(
-        future: repository.getSubjects(),
-        builder: (context, snapshot) {
-          // 1. Ladezustand: Zeige Spinner
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+      body: subjects.when(
+        data: (subjects) {
+          if (subjects.isEmpty) {
+            return const Center(child: Text("Keine Fächer gefunden"));
           }
-
-          // 2. Fehlerzustand: Zeige Fehlermeldung
-          // WICHTIG: Das fängt Datenbank- oder Parsing-Fehler ab
-          if (snapshot.hasError) {
-            return Center(
-              child: Text(
-                "Ein Fehler ist aufgetreten: ${snapshot.error}",
-              ),
-            );
-          }
-
-          // 3. Erfolgsfall mit Daten
-          if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-            final subjects = snapshot.data!;
-            return ListView.builder(
-              itemCount: subjects.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(subjects[index].subject),
-                  subtitle: Text(
-                    subjects[index].createdAt.toString(),
-                  ),
-                );
-              },
-            );
-          }
-
-          // 4. Fallback: Fertig, aber keine Daten (Leere Liste)
-          return const Center(child: Text("Keine Fächer gefunden."));
+          return GridView.builder(
+            itemCount: subjects.length,
+            gridDelegate:
+                const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 15,
+                ),
+            itemBuilder: (context, index) {
+              final currentSubject = subjects[index];
+              return CreateBox(name: currentSubject.subject);
+            },
+          );
+        },
+        error: (error, stackTrace) {
+          return Center(child: Text("Fehler beim Laden: $error"));
+        },
+        loading: () {
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );
