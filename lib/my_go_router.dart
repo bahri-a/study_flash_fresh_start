@@ -11,6 +11,26 @@ final goRouterProvider = Provider<GoRouter>((ref) {
 
   return GoRouter(
     initialLocation: '/login', //Start URL
+
+    redirect: (context, state) {
+      final bool isLoggedIn = authState.value != null;
+      final bool isLoggingIn = state.uri.toString() == '/login';
+      final bool isRegistering = state.uri.toString() == '/register';
+
+      // Fall 1: Der User ist nicht eingeloggt => LoginScreen
+      if (!isLoggedIn && !isLoggingIn && !isRegistering) {
+        return '/login';
+      }
+
+      // Fall 2: Der User ist eingeloggt => Home
+      if (isLoggedIn && (isLoggingIn || isRegistering)) {
+        return '/';
+      }
+
+      // Fall 3: Keine Umleitung, wenn es kein Need gibt
+      return null;
+    },
+
     routes: [
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
