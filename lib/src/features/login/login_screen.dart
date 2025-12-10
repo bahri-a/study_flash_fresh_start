@@ -1,23 +1,20 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:study_flash/services/auth_repository.dart';
+import 'package:study_flash/providers/auth_provider.dart';
 
-class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key});
+class LoginScreen extends ConsumerStatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final AuthRepository _firebaseAuth = AuthRepository(
-    FirebaseAuth.instance,
-  );
-
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   String? errorMessage;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -46,17 +43,33 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: const TextStyle(color: Colors.red),
               ),
 
-            ElevatedButton(
-              onPressed: () {
-                _firebaseAuth.signInWithEmail(
-                  email: _emailController.text,
-                  password: _passwordController.text,
-                );
-                context.push("/");
-              },
-              child: const Text("Einloggen"),
-            ),
-
+            isLoading
+                ? const CircularProgressIndicator()
+                : ElevatedButton(
+                    onPressed: () async {
+                      setState(() {
+                        errorMessage = null;
+                        isLoading = true;
+                      });
+                      try {
+                        await ref
+                            .read(authRepositoryProvider)
+                            .signInWithEmail(
+                              email: _emailController.text.trim(),
+                              password: _passwordController.text
+                                  .trim(),
+                            );
+                      } catch (e) {
+                        if (mounted) {
+                          setState(() {
+                            errorMessage = "Fehler: $e";
+                            isLoading = false;
+                          });
+                        }
+                      }
+                    },
+                    child: const Text("Einloggen"),
+                  ),
             TextButton(
               onPressed: () {
                 // Navigation zum Registrieren-Screen

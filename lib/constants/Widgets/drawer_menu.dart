@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:study_flash/providers/auth_provider.dart';
 
-class DrawerMenu extends StatelessWidget {
+class DrawerMenu extends ConsumerWidget {
   const DrawerMenu({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Drawer(
       width: 225,
-
       child: Column(
         spacing: 35,
         children: [
@@ -21,7 +22,12 @@ class DrawerMenu extends StatelessWidget {
               ),
             ),
           ),
-          Text("Logout", style: TextStyle(fontSize: 20)),
+          InkWell(
+            onTap: () {
+              ref.read(authRepositoryProvider).signOut();
+            },
+            child: Text("Logout", style: TextStyle(fontSize: 20)),
+          ),
           Text("Settings", style: TextStyle(fontSize: 20)),
           Text("Contact", style: TextStyle(fontSize: 20)),
         ],

@@ -1,38 +1,24 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:study_flash/providers/auth_provider.dart';
 import 'package:study_flash/services/auth_repository.dart';
 import 'package:study_flash/src/features/home/presentation/home_screen.dart';
 
-class RegisterScreen extends StatefulWidget {
+class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  ConsumerState<RegisterScreen> createState() =>
+      _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  final AuthRepository _firebaseAuth = AuthRepository(
-    FirebaseAuth.instance,
-  );
-
+class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   String? errorMessage;
-
-  // Future<void> _register() async {
-  //   try {
-  //     await AuthService().createAccount(
-  //       email: _emailController.text.trim(),
-  //       password: _passwordController.text.trim(),
-  //     );
-  //     // Nach erfolgreicher Registrierung schließen wir diesen Screen,
-  //     // damit der User (nun eingeloggt) im Main-Flow landet.
-  //     if (mounted) Navigator.of(context).pop();
-  //   } catch (e) {
-  //     setState(() => errorMessage = e.toString());
-  //   }
-  // }
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -61,21 +47,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 style: const TextStyle(color: Colors.red),
               ),
 
-            ElevatedButton(
-              onPressed: () {
-                _firebaseAuth.createAccount(
-                  email: _emailController.text,
-                  password: _passwordController.text,
-                );
-                context.push("/");
-              },
-              child: const Text("Registrieren"),
-            ),
+            isLoading
+                ? const CircularProgressIndicator()
+                : ElevatedButton(
+                    onPressed: () async {
+                      setState(() {
+                        errorMessage = null;
+                        isLoading = true;
+                      });
+
+                      try {
+                        await ref
+                            .read(authRepositoryProvider)
+                            .createAccount(
+                              email: _emailController.text.trim(),
+                              password: _passwordController.text
+                                  .trim(),
+                            );
+                      } catch (e) {
+                        setState(() {
+                          setState(() {
+                            errorMessage = "Fehler: $e";
+                            isLoading = false;
+                          });
+                        });
+                      }
+                    },
+                    child: const Text("Registrieren"),
+                  ),
 
             TextButton(
               onPressed: () {
                 // Geht zurück zum Login Screen
-                context.push("/login");
+                context.pop();
               },
               child: const Text("Zurück zum Login"),
             ),
