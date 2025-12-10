@@ -1,11 +1,14 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:study_flash/providers/auth_provider.dart';
 import 'package:study_flash/shell_screen.dart';
 import 'package:study_flash/src/features/home/presentation/home_screen.dart';
 import 'package:study_flash/src/features/login/login_screen.dart';
 import 'package:study_flash/src/features/register/register_screen.dart';
 
-GoRouter myGoRouter() {
+final goRouterProvider = Provider<GoRouter>((ref) {
+  final authState = ref.watch(authStateChangesProvider);
+
   return GoRouter(
     initialLocation: '/login', //Start URL
     routes: [
@@ -129,4 +132,4 @@ GoRouter myGoRouter() {
       ),
     ],
   );
-}
+});

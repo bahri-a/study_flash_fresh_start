@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:study_flash/services/auth_repository.dart';
@@ -10,22 +11,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final AuthRepository _firebaseAuth = AuthRepository();
+  final AuthRepository _firebaseAuth = AuthRepository(
+    FirebaseAuth.instance,
+  );
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   String? errorMessage;
-
-  // Future<void> _login() async {
-  //   try {
-  //     await AuthService().signInWithEmail(
-  //       email: _emailController.text.trim(),
-  //       password: _passwordController.text.trim(),
-  //     );
-  //   } catch (e) {
-  //     setState(() => errorMessage = e.toString());
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {

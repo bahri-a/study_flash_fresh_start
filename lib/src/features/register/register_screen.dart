@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:study_flash/services/auth_repository.dart';
@@ -11,7 +12,9 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final AuthRepository _firebaseAuth = AuthRepository();
+  final AuthRepository _firebaseAuth = AuthRepository(
+    FirebaseAuth.instance,
+  );
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
