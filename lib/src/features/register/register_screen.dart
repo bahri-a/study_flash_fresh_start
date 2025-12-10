@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:study_flash/services/auth_service.dart';
+import 'package:study_flash/services/auth_repository.dart';
 import 'package:study_flash/src/features/home/presentation/home_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -11,7 +11,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final AuthService _firebaseAuth = AuthService();
+  final AuthRepository _firebaseAuth = AuthRepository();
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();

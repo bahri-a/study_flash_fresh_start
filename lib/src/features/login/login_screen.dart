@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:study_flash/services/auth_service.dart';
+import 'package:study_flash/services/auth_repository.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
@@ -10,7 +10,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final AuthService _firebaseAuth = AuthService();
+  final AuthRepository _firebaseAuth = AuthRepository();
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
