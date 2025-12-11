@@ -27,7 +27,7 @@ class GreetingTitleHome extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Hi, $name",
+          "Hi, $name!",
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ), //!     Begrüßung
         Text(title),
