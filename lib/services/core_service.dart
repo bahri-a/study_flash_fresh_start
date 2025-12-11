@@ -43,7 +43,11 @@ class CoreService {
     required Map<String, dynamic> data,
   }) async {
     // set() überschreibt das gesamte Dokument oder erstellt es, falls es nicht existiert.
-    await _coreService.collection(path).doc(docId).set(data);
+    try {
+      await _coreService.collection(path).doc(docId).set(data);
+    } catch (e) {
+      throw Exception("Error: $e");
+    }
   }
 
   // UPDATE: Aktualisiert nur einzelne Felder eines existierenden Dokuments.

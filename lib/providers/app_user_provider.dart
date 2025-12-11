@@ -16,7 +16,7 @@ final userRepositoryProvider = Provider<AppUserRepository>((ref) {
 });
 
 // Aufgabe: Zeigt die Liste der Fächer an
-final currentUserDataProvider = FutureProvider<AppUser?>((ref) async {
+final currentUserDataProvider = StreamProvider<AppUser?>((ref) {
   final repository = ref.watch(userRepositoryProvider);
-  return repository.getCurrentAppUserData();
+  return repository.streamCurrentAppUserData();
 });

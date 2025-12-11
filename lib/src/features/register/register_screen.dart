@@ -34,6 +34,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
             TextField(
               controller: _emailController,
               decoration: const InputDecoration(labelText: "E-Mail"),
+              autocorrect: false,
             ),
             TextField(
               controller: _passwordController,
@@ -47,6 +48,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
               decoration: const InputDecoration(
                 labelText: "Benutzername",
               ),
+              autocorrect: false,
             ),
             const SizedBox(height: 20),
             if (errorMessage != null)
@@ -64,13 +66,33 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         isLoading = true;
                       });
 
-                      await ref
-                          .read(userRepositoryProvider)
-                          .signUpUser(
-                            email: _emailController.text,
-                            password: _passwordController.text,
-                            username: _usernameController.text,
-                          );
+                      try {
+                        await ref
+                            .read(userRepositoryProvider)
+                            .signUpUser(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                              username: _usernameController.text,
+                            );
+                        await ref.refresh(
+                          currentUserDataProvider.future,
+                        );
+                        context.go("/");
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == "email-already-in-use")
+                          errorMessage =
+                              "Diese E-Mail-Adresse ist bereits registriert.";
+                        setState(() {
+                          errorMessage = errorMessage;
+                        });
+                      } catch (e) {
+                        setState(() {
+                          errorMessage =
+                              "Ein unerwarteter Fehler ist aufgetreten: $e";
+                        });
+                      } finally {
+                        isLoading = false;
+                      }
                     },
                     child: const Text("Registrieren"),
                   ),
