@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:study_flash/providers/user_provider.dart';
+import 'package:study_flash/providers/app_user_provider.dart';
 import 'package:study_flash/src/features/home/presentation/widgets/greeting_title_home.dart';
 
 class HomeHeader extends ConsumerWidget {
@@ -35,11 +35,16 @@ class HomeHeader extends ConsumerWidget {
           //   size: 60,
           // ), //!
           //            Profilbild
-          userDaten.when(
-            data: (data) => GreetingTitleHome(name: data.username),
-            loading: () => GreetingTitleHome(name: "Loading..."),
-            error: (error, stackTrace) =>
-                GreetingTitleHome(name: "AnonymerGast"),
+          Expanded(
+            child: userDaten.when(
+              data: (data) {
+                final displayName = data?.username ?? "anonymer Gast";
+                return GreetingTitleHome(name: displayName);
+              },
+              loading: () => GreetingTitleHome(name: "..."),
+              error: (error, stackTrace) =>
+                  GreetingTitleHome(name: "anonymer Gast"),
+            ),
           ),
 
           SizedBox(width: 35),

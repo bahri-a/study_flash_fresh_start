@@ -15,6 +15,7 @@ abstract class Subject with _$Subject {
   const factory Subject({
     //Todo: Weitere Variablen im Verlauf hinzufügen
     required String subject,
+    //required String farbe,
 
     // Wir nutzen @JsonKey statt @TimestampConverter
     // Das sagt: "Nimm _fromJson zum Lesen und _toJson zum Schreiben"

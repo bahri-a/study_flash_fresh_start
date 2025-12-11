@@ -9,14 +9,14 @@ import 'package:study_flash/src/core/models/app_user/app_user.dart';
 
 // "Lagerraum" für die Liste der Subjects, die uns das subject_repo gibt
 // Aufgabe: Stellt dir die Funktionen von SubjectRepository zur Verfügung (getSubjects())
-final userRepositoryProvider = Provider<UserRepository>((ref) {
+final userRepositoryProvider = Provider<AppUserRepository>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
-  return UserRepository(CoreService(), authRepository);
+  return AppUserRepository(CoreService(), authRepository);
   //return UserRepository(CoreService(), AuthRepository(_firebaseAuth));
 });
 
 // Aufgabe: Zeigt die Liste der Fächer an
-final currentUserDataProvider = FutureProvider<AppUser>((ref) async {
+final currentUserDataProvider = FutureProvider<AppUser?>((ref) async {
   final repository = ref.watch(userRepositoryProvider);
-  return repository.getCurrentUserData();
+  return repository.getCurrentAppUserData();
 });

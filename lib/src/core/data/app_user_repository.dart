@@ -3,13 +3,13 @@ import 'package:study_flash/services/core_service.dart';
 import 'package:study_flash/src/core/models/app_user/app_user.dart';
 import 'package:study_flash/services/auth_repository.dart';
 
-class UserRepository {
+class AppUserRepository {
   final CoreService _coreService;
   final AuthRepository authRepository;
 
-  UserRepository(this._coreService, this.authRepository);
+  AppUserRepository(this._coreService, this.authRepository);
 
-  Future<List<AppUser>> getUsers() async {
+  Future<List<AppUser>> getAppUsers() async {
     final rohdaten = await _coreService.getCollection(path: 'users');
     final rohdatenDocs = rohdaten.docs;
 
@@ -21,20 +21,24 @@ class UserRepository {
     return users;
   }
 
-  Future<AppUser> getCurrentUserData() async {
+  Future<AppUser?> getCurrentAppUserData() async {
     final firebaseUser = authRepository.currentUser;
-    if (firebaseUser == null) {
-      throw Exception("Kein User eingeloggt");
-    }
-    final rohDaten = await _coreService.getDocument(
-      path: 'users',
-      docId: firebaseUser.uid,
-    );
 
-    final userDaten = rohDaten.data();
-    if (userDaten == null) {
-      throw Exception("User Daten nicht gefunden");
+    if (firebaseUser == null) {
+      return null;
     }
-    return AppUser.fromJson(userDaten);
+
+    try {
+      final rohDaten = await _coreService.getDocument(
+        path: 'users',
+        docId: firebaseUser.uid,
+      );
+
+      final userDaten = rohDaten.data();
+      if (userDaten == null) return null;
+      return AppUser.fromJson(userDaten);
+    } catch (e) {
+      return null;
+    }
   }
 }

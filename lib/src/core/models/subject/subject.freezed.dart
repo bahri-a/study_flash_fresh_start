@@ -16,7 +16,8 @@ T _$identity<T>(T value) => value;
 mixin _$Subject {
 
 //Todo: Weitere Variablen im Verlauf hinzufügen
- String get subject;// Wir nutzen @JsonKey statt @TimestampConverter
+ String get subject;//required String farbe,
+// Wir nutzen @JsonKey statt @TimestampConverter
 // Das sagt: "Nimm _fromJson zum Lesen und _toJson zum Schreiben"
 @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime get createdAt;
 /// Create a copy of Subject
@@ -218,6 +219,7 @@ class _Subject implements Subject {
 
 //Todo: Weitere Variablen im Verlauf hinzufügen
 @override final  String subject;
+//required String farbe,
 // Wir nutzen @JsonKey statt @TimestampConverter
 // Das sagt: "Nimm _fromJson zum Lesen und _toJson zum Schreiben"
 @override@JsonKey(fromJson: _fromJson, toJson: _toJson) final  DateTime createdAt;
