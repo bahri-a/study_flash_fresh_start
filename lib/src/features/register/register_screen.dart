@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:study_flash/providers/app_user_provider.dart';
 import 'package:study_flash/providers/auth_provider.dart';
 import 'package:study_flash/repositories/auth_repository.dart';
-import 'package:study_flash/src/core/models/app_user/app_user.dart';
+import 'package:study_flash/core/models/app_user/app_user.dart';
 import 'package:study_flash/src/features/home/presentation/home_screen.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
@@ -47,7 +47,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
               autocorrect: false,
             ),
             const SizedBox(height: 20),
-            if (errorMessage != null) Text(errorMessage!, style: const TextStyle(color: Colors.red)),
+            if (errorMessage != null)
+              Text(errorMessage!, style: const TextStyle(color: Colors.red)),
 
             isLoading
                 ? const CircularProgressIndicator()
@@ -67,12 +68,16 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                               username: _usernameController.text,
                             );
                         // Warte bis der Username geladen ist (für den Homescreen)
-                        AppUser? user = await ref.read(userRepositoryProvider).getCurrentAppUserData();
+                        AppUser? user = await ref
+                            .read(userRepositoryProvider)
+                            .getCurrentAppUserData();
                         String? username = user?.username;
                         int versuche = 0;
                         do {
                           await Future.delayed(Duration(milliseconds: 100));
-                          user = await ref.read(userRepositoryProvider).getCurrentAppUserData();
+                          user = await ref
+                              .read(userRepositoryProvider)
+                              .getCurrentAppUserData();
                           username = user?.username;
                           versuche++;
                         } while (username == null && versuche < 10);
@@ -81,7 +86,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           context.go("/");
                         } else if (context.mounted) {
                           setState(() {
-                            errorMessage = "Zeitüberschreitung: Profil konnte nicht geladen werden.";
+                            errorMessage =
+                                "Zeitüberschreitung: Profil konnte nicht geladen werden.";
                             isLoading = false;
                           });
                         }
@@ -89,7 +95,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         if (context.mounted) {
                           setState(() {
                             if (e.code == "email-already-in-use") {
-                              errorMessage = "Diese E-Mail-Adresse ist bereits registriert.";
+                              errorMessage =
+                                  "Diese E-Mail-Adresse ist bereits registriert.";
                             } else if (e.code == "invalid-email") {
                               errorMessage = "Die E-Mail-Adresse ist ungültig.";
                             } else if (e.code == "weak-password") {
@@ -100,7 +107,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         }
                       } catch (e) {
                         setState(() {
-                          errorMessage = "Ein unerwarteter Fehler ist aufgetreten: $e";
+                          errorMessage =
+                              "Ein unerwarteter Fehler ist aufgetreten: $e";
                         });
                       }
                     },

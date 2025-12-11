@@ -5,7 +5,7 @@ import 'package:study_flash/repositories/auth_repository.dart';
 import 'package:study_flash/services/core_service.dart';
 import 'package:study_flash/repositories/subject_repository.dart';
 import 'package:study_flash/repositories/app_user_repository.dart';
-import 'package:study_flash/src/core/models/app_user/app_user.dart';
+import 'package:study_flash/core/models/app_user/app_user.dart';
 
 final userRepositoryProvider = Provider<AppUserRepository>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);

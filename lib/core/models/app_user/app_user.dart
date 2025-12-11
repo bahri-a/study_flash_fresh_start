@@ -6,10 +6,8 @@ part 'app_user.g.dart';
 
 @freezed
 abstract class AppUser with _$AppUser {
-  const factory AppUser({
-    required String email,
-    required String username,
-  }) = _AppUser;
+  const factory AppUser({required String email, required String username}) =
+      _AppUser;
 
   factory AppUser.fromJson(Map<String, dynamic> json) =>
       _$AppUserFromJson(json);

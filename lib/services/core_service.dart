@@ -42,7 +42,6 @@ class CoreService {
     required String docId,
     required Map<String, dynamic> data,
   }) async {
-    // set() überschreibt das gesamte Dokument oder erstellt es, falls es nicht existiert.
     try {
       await _coreService.collection(path).doc(docId).set(data);
     } catch (e) {
