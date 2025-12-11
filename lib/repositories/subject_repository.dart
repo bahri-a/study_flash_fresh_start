@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:study_flash/services/auth_repository.dart';
+import 'package:study_flash/repositories/auth_repository.dart';
 import 'package:study_flash/services/core_service.dart';
 import 'package:study_flash/src/core/models/subject/subject.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:study_flash/providers/auth_provider.dart';
 import 'package:study_flash/services/core_service.dart';
-import 'package:study_flash/src/core/data/subject_repository.dart';
+import 'package:study_flash/repositories/subject_repository.dart';
 
 final subjectRepositoryProvider = Provider<SubjectRepository>((ref) {
   final coreService = CoreService();

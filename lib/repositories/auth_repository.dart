@@ -25,11 +25,14 @@ class AuthRepository {
   Future<UserCredential> createAccount({
     required String email,
     required String password,
+    required String username,
   }) async {
-    return await _firebaseAuth.createUserWithEmailAndPassword(
+    final result = await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
+    await updateDisplayname(username: username);
+    return result;
   }
 
   Future<void> signOut() async {
@@ -40,7 +43,7 @@ class AuthRepository {
     return await _firebaseAuth.sendPasswordResetEmail(email: email);
   }
 
-  Future<void> updateUsername({required String username}) async {
+  Future<void> updateDisplayname({required String username}) async {
     await currentUser!.updateDisplayName(username);
   }
 

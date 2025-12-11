@@ -2,7 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:study_flash/services/auth_repository.dart';
+import 'package:study_flash/repositories/auth_repository.dart';
 
 // Dieser Provider stellt das Repository für die ganze App bereit.
 final authRepositoryProvider = Provider<AuthRepository>((ref) {

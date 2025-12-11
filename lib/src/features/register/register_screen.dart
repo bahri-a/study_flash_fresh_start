@@ -2,8 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:study_flash/providers/app_user_provider.dart';
 import 'package:study_flash/providers/auth_provider.dart';
-import 'package:study_flash/services/auth_repository.dart';
+import 'package:study_flash/repositories/auth_repository.dart';
 import 'package:study_flash/src/features/home/presentation/home_screen.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
@@ -17,6 +18,7 @@ class RegisterScreen extends ConsumerStatefulWidget {
 class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _usernameController = TextEditingController();
   String? errorMessage;
   bool isLoading = false;
 
@@ -40,6 +42,12 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
               ),
               obscureText: true,
             ),
+            TextField(
+              controller: _usernameController,
+              decoration: const InputDecoration(
+                labelText: "Benutzername",
+              ),
+            ),
             const SizedBox(height: 20),
             if (errorMessage != null)
               Text(
@@ -56,22 +64,13 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         isLoading = true;
                       });
 
-                      try {
-                        await ref
-                            .read(authRepositoryProvider)
-                            .createAccount(
-                              email: _emailController.text.trim(),
-                              password: _passwordController.text
-                                  .trim(),
-                            );
-                      } catch (e) {
-                        setState(() {
-                          setState(() {
-                            errorMessage = "Fehler: $e";
-                            isLoading = false;
-                          });
-                        });
-                      }
+                      await ref
+                          .read(userRepositoryProvider)
+                          .signUpUser(
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                            username: _usernameController.text,
+                          );
                     },
                     child: const Text("Registrieren"),
                   ),
