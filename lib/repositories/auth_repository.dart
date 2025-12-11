@@ -31,7 +31,6 @@ class AuthRepository {
       email: email,
       password: password,
     );
-    await updateDisplayname(username: username);
     return result;
   }
 
@@ -43,7 +42,7 @@ class AuthRepository {
     return await _firebaseAuth.sendPasswordResetEmail(email: email);
   }
 
-  Future<void> updateDisplayname({required String username}) async {
+  Future<void> updateDisplayName({required String username}) async {
     await currentUser!.updateDisplayName(username);
   }
 

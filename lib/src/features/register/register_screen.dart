@@ -75,6 +75,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                               username: _usernameController.text,
                             );
                         await ref.refresh(
+                          //! funzt ned
                           currentUserDataProvider.future,
                         );
                         context.go("/");
