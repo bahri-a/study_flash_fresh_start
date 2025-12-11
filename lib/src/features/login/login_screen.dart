@@ -31,17 +31,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ),
             TextField(
               controller: _passwordController,
-              decoration: const InputDecoration(
-                labelText: "Passwort",
-              ),
+              decoration: const InputDecoration(labelText: "Passwort"),
               obscureText: true,
             ),
             const SizedBox(height: 20),
-            if (errorMessage != null)
-              Text(
-                errorMessage!,
-                style: const TextStyle(color: Colors.red),
-              ),
+            if (errorMessage != null) Text(errorMessage!, style: const TextStyle(color: Colors.red)),
 
             isLoading
                 ? const CircularProgressIndicator()
@@ -56,11 +50,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             .read(authRepositoryProvider)
                             .signInWithEmail(
                               email: _emailController.text.trim(),
-                              password: _passwordController.text
-                                  .trim(),
+                              password: _passwordController.text.trim(),
                             );
                       } catch (e) {
-                        if (mounted) {
+                        if (context.mounted) {
                           setState(() {
                             errorMessage = "Fehler: $e";
                             isLoading = false;

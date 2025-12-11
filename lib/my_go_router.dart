@@ -14,16 +14,16 @@ final goRouterProvider = Provider<GoRouter>((ref) {
 
     redirect: (context, state) {
       final bool isLoggedIn = authState.value != null;
-      final bool isLoggingIn = state.uri.toString() == '/login';
-      final bool isRegistering = state.uri.toString() == '/register';
+      final bool isOnLoginScreen = state.uri.toString() == '/login';
+      final bool isOnRegisterScreen = state.uri.toString() == '/register';
 
       // Fall 1: Der User ist nicht eingeloggt => LoginScreen
-      if (!isLoggedIn && !isLoggingIn && !isRegistering) {
+      if (!isLoggedIn && !isOnLoginScreen && !isOnRegisterScreen) {
         return '/login';
       }
 
       // Fall 2: Der User ist eingeloggt => Home
-      if (isLoggedIn && (isLoggingIn || isRegistering)) {
+      if (isLoggedIn && (isOnLoginScreen || isOnRegisterScreen)) {
         return '/';
       }
 
@@ -38,12 +38,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         },
         branches: [
           StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/',
-                builder: (context, state) => HomeScreen(),
-              ),
-            ],
+            routes: [GoRoute(path: '/', builder: (context, state) => HomeScreen())],
           ),
 
           // StatefulShellBranch(

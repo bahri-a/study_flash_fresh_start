@@ -68,12 +68,16 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                             );
                         // Warte bis der Username geladen ist (für den Homescreen)
                         AppUser? user = await ref.read(userRepositoryProvider).getCurrentAppUserData();
+                        String? username = user?.username;
+                        int versuche = 0;
                         do {
-                          user = await ref.read(userRepositoryProvider).getCurrentAppUserData();
                           await Future.delayed(Duration(milliseconds: 100));
-                        } while (user == null);
+                          user = await ref.read(userRepositoryProvider).getCurrentAppUserData();
+                          username = user?.username;
+                          versuche++;
+                        } while (username == null && versuche < 10);
 
-                        if (user != null && context.mounted) {
+                        if (context.mounted) {
                           context.go("/");
                         } else if (context.mounted) {
                           setState(() {
