@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'user.dart';
+part of 'app_user.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -20,7 +20,7 @@ mixin _$User {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$UserCopyWith<User> get copyWith => _$UserCopyWithImpl<User>(this as User, _$identity);
+$UserCopyWith<AppUser> get copyWith => _$UserCopyWithImpl<AppUser>(this as AppUser, _$identity);
 
   /// Serializes this User to a JSON map.
   Map<String, dynamic> toJson();
@@ -28,7 +28,7 @@ $UserCopyWith<User> get copyWith => _$UserCopyWithImpl<User>(this as User, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is User&&(identical(other.email, email) || other.email == email)&&(identical(other.username, username) || other.username == username));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppUser&&(identical(other.email, email) || other.email == email)&&(identical(other.username, username) || other.username == username));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,7 +45,7 @@ String toString() {
 
 /// @nodoc
 abstract mixin class $UserCopyWith<$Res>  {
-  factory $UserCopyWith(User value, $Res Function(User) _then) = _$UserCopyWithImpl;
+  factory $UserCopyWith(AppUser value, $Res Function(AppUser) _then) = _$UserCopyWithImpl;
 @useResult
 $Res call({
  String email, String username
@@ -60,8 +60,8 @@ class _$UserCopyWithImpl<$Res>
     implements $UserCopyWith<$Res> {
   _$UserCopyWithImpl(this._self, this._then);
 
-  final User _self;
-  final $Res Function(User) _then;
+  final AppUser _self;
+  final $Res Function(AppUser) _then;
 
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
@@ -76,8 +76,8 @@ as String,
 }
 
 
-/// Adds pattern-matching-related methods to [User].
-extension UserPatterns on User {
+/// Adds pattern-matching-related methods to [AppUser].
+extension UserPatterns on AppUser {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -209,7 +209,7 @@ return $default(_that.email,_that.username);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _User implements User {
+class _User implements AppUser {
   const _User({required this.email, required this.username});
   factory _User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
