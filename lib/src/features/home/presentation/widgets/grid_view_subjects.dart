@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:study_flash/providers/subject_provider.dart';
+import 'package:study_flash/src/core/providers/subject_provider.dart';
 import 'package:study_flash/src/features/home/presentation/widgets/create_box.dart';
 import 'package:study_flash/src/features/home/presentation/widgets/show_add_subject_dialog.dart';
 
 class GridViewSubjects extends ConsumerWidget {
-  GridViewSubjects({super.key});
+  const GridViewSubjects({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:study_flash/services/core_service.dart';
-import 'package:study_flash/core/models/app_user/app_user.dart';
-import 'package:study_flash/repositories/auth_repository.dart';
-import 'package:go_router/go_router.dart';
+import 'package:study_flash/src/core/services/core_service.dart';
+import 'package:study_flash/src/core/models/app_user/app_user.dart';
+import 'package:study_flash/src/core/repositories/auth_repository.dart';
 
 class AppUserRepository {
   final CoreService _coreService;
