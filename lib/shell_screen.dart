@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:study_flash/constants/Widgets/drawer_menu.dart';
 import 'package:study_flash/constants/Widgets/my_navigation_bar.dart';
-import 'package:study_flash/providers/auth_provider.dart';
+import 'package:study_flash/src/core/providers/auth_provider.dart';
 
 class ShellScreen extends ConsumerWidget {
   const ShellScreen({

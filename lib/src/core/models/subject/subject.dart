@@ -15,9 +15,9 @@ abstract class Subject with _$Subject {
   const factory Subject({
     //Todo: Weitere Variablen im Verlauf hinzufügen
     required String subjectName,
+    //required String id,
     //required String farbe,
 
-    // Wir nutzen @JsonKey statt @TimestampConverter
     // Das sagt: "Nimm _fromJson zum Lesen und _toJson zum Schreiben"
     @JsonKey(fromJson: _fromJson, toJson: _toJson) required DateTime createdAt,
   }) = _Subject;

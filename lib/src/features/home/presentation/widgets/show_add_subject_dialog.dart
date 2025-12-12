@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:study_flash/providers/subject_provider.dart';
+import 'package:study_flash/src/core/providers/subject_provider.dart';
 
 void showAddSubjectDialog(BuildContext context, WidgetRef ref) {
   final TextEditingController subjectController = TextEditingController();

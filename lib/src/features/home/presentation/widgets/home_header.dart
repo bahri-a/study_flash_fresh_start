@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:study_flash/providers/app_user_provider.dart';
+import 'package:study_flash/src/core/providers/app_user_provider.dart';
 import 'package:study_flash/src/features/home/presentation/widgets/greeting_title_home.dart';
 
 class HomeHeader extends ConsumerWidget {

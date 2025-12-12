@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:study_flash/providers/auth_provider.dart';
+import 'package:study_flash/src/core/providers/auth_provider.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -35,7 +35,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               obscureText: true,
             ),
             const SizedBox(height: 20),
-            if (errorMessage != null) Text(errorMessage!, style: const TextStyle(color: Colors.red)),
+            if (errorMessage != null)
+              Text(errorMessage!, style: const TextStyle(color: Colors.red)),
 
             isLoading
                 ? const CircularProgressIndicator()

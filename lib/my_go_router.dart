@@ -1,10 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:study_flash/providers/auth_provider.dart';
+import 'package:study_flash/src/core/providers/auth_provider.dart';
 import 'package:study_flash/shell_screen.dart';
 import 'package:study_flash/src/features/home/presentation/home_screen.dart';
 import 'package:study_flash/src/features/login/login_screen.dart';
 import 'package:study_flash/src/features/register/register_screen.dart';
+import 'package:study_flash/src/features/study/presentation/study_screen.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateChangesProvider);
@@ -38,7 +39,9 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         },
         branches: [
           StatefulShellBranch(
-            routes: [GoRoute(path: '/', builder: (context, state) => HomeScreen())],
+            routes: [
+              GoRoute(path: '/', builder: (context, state) => HomeScreen()),
+            ],
           ),
 
           // StatefulShellBranch(
@@ -85,15 +88,12 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       //     return AddFachScreen();
       //   },
       // ),
-
-      // GoRoute(
-      //   path: '/study/:fach',
-      //   builder: (context, state) {
-      //     final String fach = state.pathParameters['fach']!;
-      //     final Color farbe = state.extra as Color;
-      //     return StudyScreen(fach: fach, farbe: farbe);
-      //   },
-      // ),
+      GoRoute(
+        path: '/study',
+        builder: (context, state) {
+          return StudyScreen();
+        },
+      ),
 
       // GoRoute(
       //   path: '/edit/:fach/:thema',

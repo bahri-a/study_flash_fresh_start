@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:study_flash/providers/auth_provider.dart';
+import 'package:study_flash/src/core/providers/auth_provider.dart';
 
 class DrawerMenu extends ConsumerWidget {
   const DrawerMenu({super.key});
@@ -16,10 +16,7 @@ class DrawerMenu extends ConsumerWidget {
             margin: EdgeInsets.only(top: 40),
             child: Text(
               "Menu",
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w600,
-              ),
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
             ),
           ),
           InkWell(
