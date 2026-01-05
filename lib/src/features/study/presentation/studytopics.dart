@@ -10,20 +10,7 @@ class Studytopics extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final subject = ref.read(subjectRepositoryProvider);
 
-    final bool showFloatingButton = subjectsList.maybeWhen(
-      data: (data) => data.isNotEmpty,
-      orElse: () => false,
-    );
-
     return Scaffold(
-      floatingActionButton: showFloatingButton
-          ? FloatingActionButton(
-              onPressed: () {
-                showAddSubjectDialog(context, ref);
-              },
-              child: const Icon(Icons.add),
-            )
-          : null,
       appBar: AppBar(title: Text("Topics")),
       body: Center(child: Text("No topics found")),
     );
