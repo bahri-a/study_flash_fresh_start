@@ -12,7 +12,7 @@ class CreateBox extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            context.push("/study");
+            context.push("/studytopics");
           },
           child: Container(
             height: 140,

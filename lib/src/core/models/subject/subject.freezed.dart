@@ -16,9 +16,7 @@ T _$identity<T>(T value) => value;
 mixin _$Subject {
 
 //Todo: Weitere Variablen im Verlauf hinzufügen
- String get subjectName;//required String id,
-//required String farbe,
-// Wir nutzen @JsonKey statt @TimestampConverter
+ String get subjectName; String get id;//required String farbe,
 // Das sagt: "Nimm _fromJson zum Lesen und _toJson zum Schreiben"
 @JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime get createdAt;
 /// Create a copy of Subject
@@ -33,16 +31,16 @@ $SubjectCopyWith<Subject> get copyWith => _$SubjectCopyWithImpl<Subject>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Subject&&(identical(other.subjectName, subjectName) || other.subjectName == subjectName)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Subject&&(identical(other.subjectName, subjectName) || other.subjectName == subjectName)&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,subjectName,createdAt);
+int get hashCode => Object.hash(runtimeType,subjectName,id,createdAt);
 
 @override
 String toString() {
-  return 'Subject(subjectName: $subjectName, createdAt: $createdAt)';
+  return 'Subject(subjectName: $subjectName, id: $id, createdAt: $createdAt)';
 }
 
 
@@ -53,7 +51,7 @@ abstract mixin class $SubjectCopyWith<$Res>  {
   factory $SubjectCopyWith(Subject value, $Res Function(Subject) _then) = _$SubjectCopyWithImpl;
 @useResult
 $Res call({
- String subjectName,@JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime createdAt
+ String subjectName, String id,@JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime createdAt
 });
 
 
@@ -70,9 +68,10 @@ class _$SubjectCopyWithImpl<$Res>
 
 /// Create a copy of Subject
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? subjectName = null,Object? createdAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? subjectName = null,Object? id = null,Object? createdAt = null,}) {
   return _then(_self.copyWith(
 subjectName: null == subjectName ? _self.subjectName : subjectName // ignore: cast_nullable_to_non_nullable
+as String,id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));
@@ -159,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String subjectName, @JsonKey(fromJson: _fromJson, toJson: _toJson)  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String subjectName,  String id, @JsonKey(fromJson: _fromJson, toJson: _toJson)  DateTime createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Subject() when $default != null:
-return $default(_that.subjectName,_that.createdAt);case _:
+return $default(_that.subjectName,_that.id,_that.createdAt);case _:
   return orElse();
 
 }
@@ -180,10 +179,10 @@ return $default(_that.subjectName,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String subjectName, @JsonKey(fromJson: _fromJson, toJson: _toJson)  DateTime createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String subjectName,  String id, @JsonKey(fromJson: _fromJson, toJson: _toJson)  DateTime createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _Subject():
-return $default(_that.subjectName,_that.createdAt);case _:
+return $default(_that.subjectName,_that.id,_that.createdAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +199,10 @@ return $default(_that.subjectName,_that.createdAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String subjectName, @JsonKey(fromJson: _fromJson, toJson: _toJson)  DateTime createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String subjectName,  String id, @JsonKey(fromJson: _fromJson, toJson: _toJson)  DateTime createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _Subject() when $default != null:
-return $default(_that.subjectName,_that.createdAt);case _:
+return $default(_that.subjectName,_that.id,_that.createdAt);case _:
   return null;
 
 }
@@ -215,14 +214,13 @@ return $default(_that.subjectName,_that.createdAt);case _:
 @JsonSerializable()
 
 class _Subject implements Subject {
-  const _Subject({required this.subjectName, @JsonKey(fromJson: _fromJson, toJson: _toJson) required this.createdAt});
+  const _Subject({required this.subjectName, required this.id, @JsonKey(fromJson: _fromJson, toJson: _toJson) required this.createdAt});
   factory _Subject.fromJson(Map<String, dynamic> json) => _$SubjectFromJson(json);
 
 //Todo: Weitere Variablen im Verlauf hinzufügen
 @override final  String subjectName;
-//required String id,
+@override final  String id;
 //required String farbe,
-// Wir nutzen @JsonKey statt @TimestampConverter
 // Das sagt: "Nimm _fromJson zum Lesen und _toJson zum Schreiben"
 @override@JsonKey(fromJson: _fromJson, toJson: _toJson) final  DateTime createdAt;
 
@@ -239,16 +237,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Subject&&(identical(other.subjectName, subjectName) || other.subjectName == subjectName)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Subject&&(identical(other.subjectName, subjectName) || other.subjectName == subjectName)&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,subjectName,createdAt);
+int get hashCode => Object.hash(runtimeType,subjectName,id,createdAt);
 
 @override
 String toString() {
-  return 'Subject(subjectName: $subjectName, createdAt: $createdAt)';
+  return 'Subject(subjectName: $subjectName, id: $id, createdAt: $createdAt)';
 }
 
 
@@ -259,7 +257,7 @@ abstract mixin class _$SubjectCopyWith<$Res> implements $SubjectCopyWith<$Res> {
   factory _$SubjectCopyWith(_Subject value, $Res Function(_Subject) _then) = __$SubjectCopyWithImpl;
 @override @useResult
 $Res call({
- String subjectName,@JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime createdAt
+ String subjectName, String id,@JsonKey(fromJson: _fromJson, toJson: _toJson) DateTime createdAt
 });
 
 
@@ -276,9 +274,10 @@ class __$SubjectCopyWithImpl<$Res>
 
 /// Create a copy of Subject
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? subjectName = null,Object? createdAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? subjectName = null,Object? id = null,Object? createdAt = null,}) {
   return _then(_Subject(
 subjectName: null == subjectName ? _self.subjectName : subjectName // ignore: cast_nullable_to_non_nullable
+as String,id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));

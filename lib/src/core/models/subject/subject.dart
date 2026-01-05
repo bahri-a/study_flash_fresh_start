@@ -15,7 +15,7 @@ abstract class Subject with _$Subject {
   const factory Subject({
     //Todo: Weitere Variablen im Verlauf hinzufügen
     required String subjectName,
-    //required String id,
+    required String id,
     //required String farbe,
 
     // Das sagt: "Nimm _fromJson zum Lesen und _toJson zum Schreiben"

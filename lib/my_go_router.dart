@@ -6,6 +6,7 @@ import 'package:study_flash/src/features/home/presentation/home_screen.dart';
 import 'package:study_flash/src/features/login/login_screen.dart';
 import 'package:study_flash/src/features/register/register_screen.dart';
 import 'package:study_flash/src/features/study/presentation/study_screen.dart';
+import 'package:study_flash/src/features/study/presentation/studytopics.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateChangesProvider);
@@ -95,19 +96,12 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         },
       ),
 
-      // GoRoute(
-      //   path: '/edit/:fach/:thema',
-      //   builder: (context, state) {
-      //     final String fach = state.pathParameters['fach']!;
-      //     final String thema = state.pathParameters['thema']!;
-      //     final Color farbe = state.extra as Color;
-      //     return EditScreenCards(
-      //       farbe: farbe,
-      //       fach: fach,
-      //       thema: thema,
-      //     );
-      //   },
-      // ),
+      GoRoute(
+        path: '/studytopic',
+        builder: (context, state) {
+          return Studytopics();
+        },
+      ),
 
       // GoRoute(
       //   path: '/chartsOfSubject/:fach',

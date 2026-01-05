@@ -1,6 +1,7 @@
 import 'package:study_flash/src/core/repositories/auth_repository.dart';
 import 'package:study_flash/src/core/services/core_service.dart';
 import 'package:study_flash/src/core/models/subject/subject.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SubjectRepository {
   final CoreService _coreService;
@@ -17,19 +18,25 @@ class SubjectRepository {
     final rohdatenDocs = rohdaten.docs;
     final subjects = rohdatenDocs.map((e) {
       final data = e.data();
+      data['id'] = e.id;
       return Subject.fromJson(data);
     }).toList();
     return subjects;
   }
 
+  // --------------------
+
   Future<void> addSubject({required String subjectName}) async {
     final uid = _authRepository.currentUser?.uid;
+    final generatedId = FirebaseFirestore.instance.collection('users').doc().id;
     if (uid == null) throw Exception("Account nicht gefunden");
+
     final newSubject = Subject(
+      id: generatedId,
       subjectName: subjectName,
       createdAt: DateTime.now(),
     );
-    _coreService.addDocument(
+    await _coreService.addDocument(
       path: 'users/$uid/subjects',
       data: newSubject.toJson(),
     );

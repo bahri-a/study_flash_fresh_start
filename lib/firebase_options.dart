@@ -65,4 +65,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'studyflash-bhr96.firebasestorage.app',
     iosBundleId: 'com.example.studyFlash',
   );
+
 }
