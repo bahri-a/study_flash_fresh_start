@@ -97,9 +97,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       ),
 
       GoRoute(
-        path: '/studytopic',
+        path: '/studytopics/:subjectId',
         builder: (context, state) {
-          return Studytopics();
+          final String subjectId = state.pathParameters['subjectId']!;
+          return Studytopics(subjectId: subjectId);
         },
       ),
 

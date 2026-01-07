@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:study_flash/src/core/providers/subject_provider.dart';
+import 'package:study_flash/src/core/providers/topic_provider.dart';
 
-void showAddSubjectDialog(BuildContext context, WidgetRef ref) {
-  final TextEditingController subjectController = TextEditingController();
-  final subjectFunktionen = ref.read(subjectRepositoryProvider);
+void showAddTopicDialog(BuildContext context, WidgetRef ref, String subjectId) {
+  final TextEditingController topicController = TextEditingController();
+  final topicRepository = ref.read(topicRepositoryProvider(subjectId));
 
   showDialog(
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: const Text("Neues Fach erstellen"),
+        title: const Text("Neues Topic erstellen"),
         content: TextField(
-          controller: subjectController,
+          controller: topicController,
           autofocus: true,
           decoration: const InputDecoration(
-            hintText: "z.B. Arabisch",
-            labelText: "Fach",
+            hintText: "z.B. Algebra",
+            labelText: "Topic",
           ),
         ),
         actions: [
@@ -27,11 +28,10 @@ void showAddSubjectDialog(BuildContext context, WidgetRef ref) {
           TextButton(
             onPressed: () async {
               try {
-                await subjectFunktionen.addSubject(
-                  subjectName: subjectController.text,
-                );
+                await topicRepository.addTopic(topicName: topicController.text);
+
                 Navigator.of(context).pop();
-                ref.invalidate(subjectsListProvider);
+                ref.invalidate(topicsListProvider(subjectId));
               } catch (e) {
                 throw Exception("Unerwarteter Fehler: $e");
               }

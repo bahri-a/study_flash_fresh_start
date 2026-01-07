@@ -24,6 +24,9 @@ final topicsListProvider = FutureProvider.family<List<Topic>, String>((
   ref,
   subjectId,
 ) async {
+  final userState = ref.watch(authStateChangesProvider);
+  if (userState.value == null) return [];
+
   final repository = ref.watch(topicRepositoryProvider(subjectId));
   return repository.getTopics();
 });

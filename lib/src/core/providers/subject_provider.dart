@@ -16,6 +16,10 @@ final subjectRepositoryProvider = Provider<SubjectRepository>((ref) {
 
 //Dieser Provider liefert mir Daten für die UI.
 final subjectsListProvider = FutureProvider<List<Subject>>((ref) async {
+  //aktualisiert, wenn User sich ab- anmeldet.
+  final userState = ref.watch(authStateChangesProvider);
+  if (userState.value == null) return [];
+
   final repository = ref.watch(subjectRepositoryProvider);
   return repository.getSubjects();
 });

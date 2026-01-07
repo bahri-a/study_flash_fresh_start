@@ -36,7 +36,10 @@ class GridViewSubjects extends ConsumerWidget {
                 ),
                 itemBuilder: (context, index) {
                   final currentSubject = data[index];
-                  return CreateBox(name: currentSubject.subjectName);
+                  return CreateBox(
+                    name: currentSubject.subjectName,
+                    subjectId: currentSubject.id,
+                  );
                 },
               ),
             );

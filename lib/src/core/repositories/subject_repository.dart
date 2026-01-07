@@ -36,7 +36,8 @@ class SubjectRepository {
       subjectName: subjectName,
       createdAt: DateTime.now(),
     );
-    await _coreService.addDocument(
+    await _coreService.setDocument(
+      docId: generatedId,
       path: 'users/$uid/subjects',
       data: newSubject.toJson(),
     );

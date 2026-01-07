@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 
 class CreateBox extends StatelessWidget {
   String name;
-
-  CreateBox({super.key, required this.name});
+  String subjectId;
+  CreateBox({super.key, required this.name, required this.subjectId});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class CreateBox extends StatelessWidget {
       children: [
         InkWell(
           onTap: () {
-            context.push("/studytopics");
+            context.push("/studytopics/$subjectId");
           },
           child: Container(
             height: 140,
