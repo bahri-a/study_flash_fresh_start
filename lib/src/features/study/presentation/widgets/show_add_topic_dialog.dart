@@ -29,8 +29,9 @@ void showAddTopicDialog(BuildContext context, WidgetRef ref, String subjectId) {
             onPressed: () async {
               try {
                 await topicRepository.addTopic(topicName: topicController.text);
-
-                Navigator.of(context).pop();
+                if (context.mounted) {
+                  Navigator.of(context).pop();
+                }
                 ref.invalidate(topicsListProvider(subjectId));
               } catch (e) {
                 throw Exception("Unerwarteter Fehler: $e");

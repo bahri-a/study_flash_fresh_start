@@ -14,9 +14,7 @@ class TopicRepository {
     final uid = _authRepository.currentUser?.uid;
     if (uid == null) return [];
 
-    final rohdaten = await _coreService.getCollection(
-      path: "users/$uid/subjects/$subjectId/Topic",
-    );
+    final rohdaten = await _coreService.getCollection(path: "users/$uid/subjects/$subjectId/topic");
 
     final rohdatenDocs = rohdaten.docs;
     final topics = rohdatenDocs.map((e) {
@@ -36,11 +34,7 @@ class TopicRepository {
     if (uid == null) throw Exception("User nicht eingeloggt");
 
     final generatedId = FirebaseFirestore.instance.collection("topic").doc().id;
-    final newTopic = Topic(
-      topicName: topicName,
-      id: generatedId,
-      createdAt: DateTime.now(),
-    );
+    final newTopic = Topic(topicName: topicName, id: generatedId, createdAt: DateTime.now());
     await _coreService.setDocument(
       path: "users/$uid/subjects/$subjectId/topic",
       docId: generatedId,
@@ -56,9 +50,6 @@ class TopicRepository {
     final uid = _authRepository.currentUser?.uid;
     if (uid == null) throw Exception("User nicht eingeloggt");
 
-    await _coreService.deleteDocument(
-      path: "users/$uid/subjects/$subjectId/topic",
-      docId: topicId,
-    );
+    await _coreService.deleteDocument(path: "users/$uid/subjects/$subjectId/topic", docId: topicId);
   }
 }

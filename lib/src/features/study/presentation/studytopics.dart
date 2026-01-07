@@ -20,7 +20,7 @@ class Studytopics extends ConsumerWidget {
           if (data.isEmpty) {
             return Center(
               child: ElevatedButton.icon(
-                label: const Text("Erstes Fach erstellen"),
+                label: const Text("Erstes Topic erstellen"),
                 icon: Icon(Icons.add),
                 onPressed: () {
                   showAddTopicDialog(context, ref, subjectId);
@@ -35,10 +35,10 @@ class Studytopics extends ConsumerWidget {
                 return ListTile(
                   title: Text(topic.topicName),
                   trailing: IconButton(
-                    onPressed: () {
-                      ref
-                          .read(topicRepositoryProvider(subjectId))
-                          .deleteTopic(topic.id);
+                    onPressed: () async {
+                      ref.read(topicRepositoryProvider(subjectId)).deleteTopic(topic.id);
+
+                      ref.invalidate(topicsListProvider(subjectId));
                     },
                     icon: const Icon(Icons.delete_forever_rounded),
                   ),
