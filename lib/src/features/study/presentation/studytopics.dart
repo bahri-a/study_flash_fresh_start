@@ -42,6 +42,7 @@ class Studytopics extends ConsumerWidget {
                     },
                     icon: const Icon(Icons.delete_forever_rounded),
                   ),
+                  iconColor: Colors.red,
                 );
               },
             );
