@@ -23,3 +23,8 @@ final subjectsListProvider = FutureProvider<List<Subject>>((ref) async {
   final repository = ref.watch(subjectRepositoryProvider);
   return repository.getSubjects();
 });
+
+final currentSubjectProvider = FutureProvider.family<Subject?, String>((ref, subjectId) {
+  final subjectRepository = ref.watch(subjectRepositoryProvider);
+  return subjectRepository.getCurrentSubject(subjectId: subjectId);
+});

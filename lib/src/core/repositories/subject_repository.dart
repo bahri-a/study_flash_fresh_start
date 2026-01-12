@@ -9,12 +9,27 @@ class SubjectRepository {
 
   SubjectRepository(this._coreService, this._authRepository);
 
+  Future<Subject?> getCurrentSubject({required String subjectId}) async {
+    final uid = _authRepository.currentUser?.uid;
+    if (uid == null) return null;
+
+    final rohdaten = FirebaseFirestore.instance.doc("users/$uid/subjects/$subjectId");
+    final rohdatenDoc = await rohdaten.get();
+    if (!rohdatenDoc.exists) return null;
+
+    final currentSubject = rohdatenDoc.data();
+    if (currentSubject == null) return null;
+    currentSubject['id'] = rohdatenDoc.id;
+
+    return Subject.fromJson(currentSubject);
+  }
+
+  // __________________________
+
   Future<List<Subject>> getSubjects() async {
     final uid = _authRepository.currentUser?.uid;
     if (uid == null) return [];
-    final rohdaten = await _coreService.getCollection(
-      path: "users/$uid/subjects",
-    );
+    final rohdaten = await _coreService.getCollection(path: "users/$uid/subjects");
     final rohdatenDocs = rohdaten.docs;
     final subjects = rohdatenDocs.map((e) {
       final data = e.data();
@@ -24,7 +39,7 @@ class SubjectRepository {
     return subjects;
   }
 
-  // --------------------
+  // __________________________
 
   Future<void> addSubject({required String subjectName}) async {
     final uid = _authRepository.currentUser?.uid;

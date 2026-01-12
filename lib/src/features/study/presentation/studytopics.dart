@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:study_flash/constants/Widgets/drawer_menu.dart';
 import 'package:study_flash/src/core/providers/subject_provider.dart';
 import 'package:study_flash/src/core/providers/topic_provider.dart';
+import 'package:study_flash/src/core/repositories/subject_repository.dart';
 import 'package:study_flash/src/features/study/presentation/widgets/show_add_topic_dialog.dart';
 
 class Studytopics extends ConsumerWidget {
@@ -12,15 +14,27 @@ class Studytopics extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncTopics = ref.watch(topicsListProvider(subjectId));
+    final asyncCurrentSubject = ref.watch(currentSubjectProvider(subjectId));
 
     return Scaffold(
-      appBar: AppBar(title: Text("Topics")),
+      appBar: AppBar(
+        title: asyncCurrentSubject.when(
+          data: (currentSubject) => Text("Topics für ${currentSubject?.subjectName}"),
+          error: (error, stackTrace) => Text("Topics"),
+          loading: () => Text(""),
+        ),
+      ),
       body: asyncTopics.when(
         data: (data) {
           if (data.isEmpty) {
             return Center(
               child: ElevatedButton.icon(
-                label: const Text("Erstes Topic erstellen"),
+                label: asyncCurrentSubject.when(
+                  data: (currentSubject) =>
+                      Text("Erstes Topic für ${currentSubject?.subjectName} erstellen"),
+                  error: (error, stackTrace) => Text("Erstes Topic erstellen"),
+                  loading: () => Text(""),
+                ),
                 icon: Icon(Icons.add),
                 onPressed: () {
                   showAddTopicDialog(context, ref, subjectId);
