@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:study_flash/constants/Widgets/drawer_menu.dart';
 import 'package:study_flash/src/core/providers/subject_provider.dart';
@@ -46,17 +47,40 @@ class Studytopics extends ConsumerWidget {
               itemCount: data.length,
               itemBuilder: (context, index) {
                 final topic = data[index];
-                return ListTile(
-                  title: Text(topic.topicName),
-                  trailing: IconButton(
-                    onPressed: () async {
-                      ref.read(topicRepositoryProvider(subjectId)).deleteTopic(topic.id);
+                return Padding(
+                  padding: const EdgeInsets.only(top: 12),
+                  child: Card(
+                    color: Colors.blue.shade100,
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+                    margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    child: ListTile(
+                      onTap: () {
+                        context.push("/study/$subjectId/${topic.id}");
+                      },
+                      contentPadding: const EdgeInsets.all(12),
+                      title: Text(
+                        topic.topicName,
+                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                      ),
+                      // subtitle: data.length == 1
+                      //     ? Text("${FlashCard-Anzahl} Card")
+                      //     : Text("${FlashCard-Anzahl} Cards"), //!todo
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.blueAccent.withAlpha(120),
+                        child: const Icon(Icons.vibration),
+                      ),
+                      trailing: IconButton(
+                        onPressed: () async {
+                          ref.read(topicRepositoryProvider(subjectId)).deleteTopic(topic.id);
 
-                      ref.invalidate(topicsListProvider(subjectId));
-                    },
-                    icon: const Icon(Icons.delete_forever_rounded),
+                          ref.invalidate(topicsListProvider(subjectId));
+                        },
+                        icon: const Icon(Icons.delete_forever_rounded),
+                      ),
+                      iconColor: Colors.red,
+                    ),
                   ),
-                  iconColor: Colors.red,
                 );
               },
             );

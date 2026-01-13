@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:study_flash/src/core/models/topic/topic.dart';
 import 'package:study_flash/src/core/providers/auth_provider.dart';
 import 'package:study_flash/shell_screen.dart';
 import 'package:study_flash/src/features/home/presentation/home_screen.dart';
@@ -40,9 +41,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         },
         branches: [
           StatefulShellBranch(
-            routes: [
-              GoRoute(path: '/', builder: (context, state) => HomeScreen()),
-            ],
+            routes: [GoRoute(path: '/', builder: (context, state) => HomeScreen())],
           ),
 
           // StatefulShellBranch(
@@ -90,9 +89,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       //   },
       // ),
       GoRoute(
-        path: '/study',
+        path: '/study/:subjectId/:topicId',
         builder: (context, state) {
-          return StudyScreen();
+          final String subjectId = state.pathParameters['subjectId']!;
+          final String topicId = state.pathParameters['topicId']!;
+          return StudyScreen(subjectId: subjectId, topicId: topicId);
         },
       ),
 
