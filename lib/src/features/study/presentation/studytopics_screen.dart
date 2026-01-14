@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rxdart/subjects.dart';
-import 'package:study_flash/constants/Widgets/drawer_menu.dart';
 import 'package:study_flash/src/core/providers/subject_provider.dart';
 import 'package:study_flash/src/core/providers/topic_provider.dart';
-import 'package:study_flash/src/core/repositories/subject_repository.dart';
 import 'package:study_flash/src/features/study/presentation/widgets/show_add_topic_dialog.dart';
 
-class Studytopics extends ConsumerWidget {
+class StudytopicsScreen extends ConsumerWidget {
   final String subjectId;
-  Studytopics({super.key, required this.subjectId});
+  const StudytopicsScreen({super.key, required this.subjectId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncTopics = ref.watch(topicsListProvider(subjectId));
     final asyncCurrentSubject = ref.watch(currentSubjectProvider(subjectId));
+    final topicRepository = ref.watch(topicRepositoryProvider(subjectId));
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showAddTopicDialog(context, ref, subjectId);
+        },
+        child: Icon(Icons.add, color: Colors.black, fontWeight: FontWeight.w500, size: 28),
+      ),
       appBar: AppBar(
         title: asyncCurrentSubject.when(
           data: (currentSubject) => Text("Topics für ${currentSubject?.subjectName}"),

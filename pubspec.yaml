@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   go_router: ^17.0.0
   cupertino_icons: ^1.0.8
-  flip_card: ^0.7.0
+  flip_c  ard: ^0.7.0
   fl_chart: ^1.1.1
   flutter_riverpod: ^3.0.3
   riverpod_annotation: ^3.0.3

@@ -6,8 +6,9 @@ import 'package:study_flash/shell_screen.dart';
 import 'package:study_flash/src/features/home/presentation/home_screen.dart';
 import 'package:study_flash/src/features/login/login_screen.dart';
 import 'package:study_flash/src/features/register/register_screen.dart';
+import 'package:study_flash/src/features/study/presentation/add_flashcard_screen.dart';
 import 'package:study_flash/src/features/study/presentation/study_screen.dart';
-import 'package:study_flash/src/features/study/presentation/studytopics.dart';
+import 'package:study_flash/src/features/study/presentation/studytopics_screen.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateChangesProvider);
@@ -98,10 +99,21 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       ),
 
       GoRoute(
+        path: '/addFlashcardScreen/:subjectId/:topicId',
+        builder: (context, state) {
+          final params = (
+            subjectId: state.pathParameters['subjectId']!,
+            topicId: state.pathParameters['topicId']!,
+          );
+          return AddFlashcardScreen(params: params);
+        },
+      ),
+
+      GoRoute(
         path: '/studytopics/:subjectId',
         builder: (context, state) {
           final String subjectId = state.pathParameters['subjectId']!;
-          return Studytopics(subjectId: subjectId);
+          return StudytopicsScreen(subjectId: subjectId);
         },
       ),
 

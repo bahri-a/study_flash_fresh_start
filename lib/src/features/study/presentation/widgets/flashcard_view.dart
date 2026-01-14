@@ -1,62 +1,62 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:study_flash/src/core/models/flashcard/flashcard.dart';
 
 class FlashcardView extends StatelessWidget {
-  final String subjectId;
-  final String topicId;
+  final Flashcard flashcard;
 
-  const FlashcardView({super.key, required this.subjectId, required this.topicId});
+  const FlashcardView({super.key, required this.flashcard});
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        FlipCard(
-          front: Stack(
-            children: [
-              Container(
-                height: 250,
-                width: 350,
-                decoration: BoxDecoration(
-                  color: Colors.brown.shade200,
-                  border: BoxBorder.all(width: 8, color: Colors.white),
-                ),
-                child: Center(
-                  child: Text(topicId, style: TextStyle(color: Colors.white, fontSize: 45)),
-                ),
-              ),
-
-              Positioned(
-                bottom: 20,
-                right: 20,
-                child: Icon(CupertinoIcons.arrow_2_circlepath, size: 30, color: Colors.white),
-              ),
-            ],
-          ),
-          back: Stack(
-            children: [
-              Container(
-                height: 250,
-                width: 350,
-                decoration: BoxDecoration(
-                  color: Colors.brown.shade200,
-                  border: BoxBorder.all(width: 8, color: Colors.white),
-                ),
-                child: Center(
-                  child: Text(topicId, style: TextStyle(color: Colors.white, fontSize: 45)),
-                ),
-              ),
-
-              Positioned(
-                bottom: 20,
-                right: 20,
-                child: Icon(CupertinoIcons.arrow_2_circlepath, size: 30, color: Colors.white),
-              ),
-            ],
+    return Center(
+      child: Card(
+        elevation: 8,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: SizedBox(
+          height: 300,
+          width: 350,
+          child: FlipCard(
+            direction: FlipDirection.HORIZONTAL,
+            front: _buildCardSide(flashcard.front, Colors.brown.shade200),
+            back: _buildCardSide(flashcard.back, Colors.brown.shade400),
           ),
         ),
-      ],
+      ),
     );
   }
+}
+
+Widget _buildCardSide(String text, Color color) {
+  return Container(
+    decoration: BoxDecoration(
+      color: color,
+      borderRadius: BorderRadius.circular(16),
+      border: Border.all(width: 4, color: Colors.white),
+    ),
+    child: Stack(
+      children: [
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              text,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        const Positioned(
+          bottom: 20,
+          right: 20,
+          child: Icon(CupertinoIcons.arrow_2_circlepath, size: 30, color: Colors.white),
+        ),
+      ],
+    ),
+  );
 }

@@ -15,16 +15,10 @@ void showAddTopicDialog(BuildContext context, WidgetRef ref, String subjectId) {
         content: TextField(
           controller: topicController,
           autofocus: true,
-          decoration: const InputDecoration(
-            hintText: "z.B. Algebra",
-            labelText: "Topic",
-          ),
+          decoration: const InputDecoration(hintText: "z.B. Algebra", labelText: "Topic"),
         ),
         actions: [
-          TextButton(
-            onPressed: Navigator.of(context).pop,
-            child: const Text("Abbrechen"),
-          ),
+          TextButton(onPressed: Navigator.of(context).pop, child: const Text("Abbrechen")),
           TextButton(
             onPressed: () async {
               try {
