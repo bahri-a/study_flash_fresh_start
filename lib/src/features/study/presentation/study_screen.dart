@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:study_flash/src/core/providers/subject_provider.dart';
 import 'package:study_flash/src/core/providers/topic_provider.dart';
-import 'package:study_flash/src/features/study/presentation/widgets/create_flashcard.dart';
+import 'package:study_flash/src/features/study/presentation/widgets/flashcard_view.dart';
 
 class StudyScreen extends ConsumerWidget {
   final String subjectId;
@@ -18,7 +18,7 @@ class StudyScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text("Study Screen")),
       body: Center(
-        child: CreateFlashCard(subjectId: subjectId, topicId: topicId),
+        child: FlashcardView(subjectId: subjectId, topicId: topicId),
       ),
     );
   }

@@ -2,11 +2,11 @@ import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-class CreateFlashCard extends StatelessWidget {
+class FlashcardView extends StatelessWidget {
   final String subjectId;
   final String topicId;
 
-  const CreateFlashCard({super.key, required this.subjectId, required this.topicId});
+  const FlashcardView({super.key, required this.subjectId, required this.topicId});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class CreateFlashCard extends StatelessWidget {
                   border: BoxBorder.all(width: 8, color: Colors.white),
                 ),
                 child: Center(
-                  child: Text(subjectId, style: TextStyle(color: Colors.white, fontSize: 45)),
+                  child: Text(topicId, style: TextStyle(color: Colors.white, fontSize: 45)),
                 ),
               ),
 
