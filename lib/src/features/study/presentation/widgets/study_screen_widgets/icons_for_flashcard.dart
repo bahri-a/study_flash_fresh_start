@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:study_flash/src/core/providers/flashcard_provider.dart';
 
+//!todo NEXT: Flashcard rating rated die Karte davor. Das muss ich irgendwie anders lösen mit den onTap.
+
 class IconsForFlashcard extends ConsumerWidget {
   final String subjectId;
   final String topicId;
