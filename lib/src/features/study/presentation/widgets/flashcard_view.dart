@@ -10,12 +10,13 @@ class FlashcardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Align(
+      alignment: const Alignment(0, -0.4),
       child: Card(
-        elevation: 8,
+        elevation: 10,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: SizedBox(
-          height: 300,
+          height: 250,
           width: 350,
           child: FlipCard(
             direction: FlipDirection.HORIZONTAL,
