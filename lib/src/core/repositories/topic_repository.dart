@@ -28,6 +28,25 @@ class TopicRepository {
   }
 
   //
+  //____________________
+  //
+
+  Future<String?> getCurrentTopic(String topicId) async {
+    final uid = _authRepository.currentUser?.uid;
+    if (uid == null) return null;
+
+    final rohdatenDoc = await _coreService.getDocument(
+      path: "users/$uid/subjects/$subjectId/topics",
+      docId: topicId,
+    );
+
+    final data = rohdatenDoc.data();
+    if (data == null) return null;
+    data["id"] = rohdatenDoc.id;
+    return Topic.fromJson(data).topicName;
+  }
+
+  //
   // _______________________
   //
 

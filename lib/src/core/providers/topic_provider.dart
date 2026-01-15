@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart';
 import 'package:study_flash/src/core/models/topic/topic.dart';
 import 'package:study_flash/src/core/providers/auth_provider.dart';
 import 'package:study_flash/src/core/repositories/topic_repository.dart';
@@ -10,6 +11,18 @@ final topicRepositoryProvider = Provider.family<TopicRepository, String>((ref, s
   final coreService = ref.watch(coreServiceProvider);
   final authRepository = ref.watch(authRepositoryProvider);
   return TopicRepository(coreService, authRepository, subjectId);
+});
+
+//
+// ----------------
+//
+
+typedef TopicParams = ({String subjectId, String topicId});
+
+final currentTopicProvider = FutureProvider.family<String?, TopicParams>((ref, param) {
+  final repository = ref.watch(topicRepositoryProvider((param.subjectId)));
+
+  return repository.getCurrentTopic(param.topicId);
 });
 
 //
