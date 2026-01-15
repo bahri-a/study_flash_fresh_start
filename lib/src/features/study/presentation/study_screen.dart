@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:study_flash/src/core/providers/flashcard_provider.dart';
 import 'package:study_flash/src/core/providers/topic_provider.dart';
-import 'package:study_flash/src/features/study/presentation/widgets/flashcard_view.dart';
+import 'package:study_flash/src/features/study/presentation/widgets/study_screen_widgets/icons_for_flashcard.dart';
+import 'package:study_flash/src/features/study/presentation/widgets/study_screen_widgets/flashcard_view.dart';
 import 'package:study_flash/src/features/study/presentation/widgets/show_add_flashcard_dialog.dart';
 
 class StudyScreen extends ConsumerWidget {
@@ -61,16 +62,7 @@ class StudyScreen extends ConsumerWidget {
                     },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 40, left: 40),
-                  child: Row(
-                    mainAxisAlignment: .spaceBetween,
-                    children: [
-                      Icon(Icons.thumb_down, color: Colors.red, size: 60),
-                      Icon(Icons.thumb_up, color: Colors.green, size: 60),
-                    ],
-                  ),
-                ),
+                IconsForFlashcard(),
               ],
             ),
           );
