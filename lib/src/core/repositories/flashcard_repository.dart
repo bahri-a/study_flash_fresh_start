@@ -29,6 +29,10 @@ class FlashcardRepository {
     await coreService.setDocument(path: collectionPath, docId: generatedId, data: newCard.toJson());
   }
 
+  //
+  //_________________________
+  //
+
   // Get Flashcards of topic
   Future<List<Flashcard>> getFlashcards() async {
     final uid = authRepository.currentUser?.uid;
@@ -39,10 +43,29 @@ class FlashcardRepository {
     final rohdaten = await coreService.getCollection(path: collectionPath);
     final rohdatenDocs = rohdaten.docs;
 
-    return rohdatenDocs.map((e) {
+    final flashcards = rohdatenDocs.map((e) {
       final data = e.data();
       data['id'] = e.id;
       return Flashcard.fromJson(data);
     }).toList();
+
+    flashcards.sort((a, b) => a.rating.compareTo(b.rating));
+
+    return flashcards;
+  }
+
+  //
+  //_________________________
+  //
+
+  Future<void> updateRating({required String flashcardId, required int newRating}) async {
+    final uid = authRepository.currentUser?.uid;
+    if (uid == null) return;
+
+    await coreService.updateDocument(
+      path: "users/$uid/subjects/$subjectId/topics/$topicId/flashcards",
+      docId: flashcardId,
+      data: {'rating': newRating},
+    );
   }
 }

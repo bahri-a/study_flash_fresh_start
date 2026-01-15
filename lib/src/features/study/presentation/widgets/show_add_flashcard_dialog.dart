@@ -36,7 +36,6 @@ void showAddFlashcardDialog(BuildContext context, WidgetRef ref, FlashcardParams
 
             if (context.mounted) {
               Navigator.pop(context);
-              context.pop();
             }
           },
           child: const Text("Speichern"),

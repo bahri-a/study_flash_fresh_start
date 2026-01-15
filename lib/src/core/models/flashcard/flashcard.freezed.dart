@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Flashcard {
 
- String get id; String get front; String get back;
+ String get id; String get front; String get back; int get rating;
 /// Create a copy of Flashcard
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $FlashcardCopyWith<Flashcard> get copyWith => _$FlashcardCopyWithImpl<Flashcard>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Flashcard&&(identical(other.id, id) || other.id == id)&&(identical(other.front, front) || other.front == front)&&(identical(other.back, back) || other.back == back));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Flashcard&&(identical(other.id, id) || other.id == id)&&(identical(other.front, front) || other.front == front)&&(identical(other.back, back) || other.back == back)&&(identical(other.rating, rating) || other.rating == rating));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,front,back);
+int get hashCode => Object.hash(runtimeType,id,front,back,rating);
 
 @override
 String toString() {
-  return 'Flashcard(id: $id, front: $front, back: $back)';
+  return 'Flashcard(id: $id, front: $front, back: $back, rating: $rating)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $FlashcardCopyWith<$Res>  {
   factory $FlashcardCopyWith(Flashcard value, $Res Function(Flashcard) _then) = _$FlashcardCopyWithImpl;
 @useResult
 $Res call({
- String id, String front, String back
+ String id, String front, String back, int rating
 });
 
 
@@ -65,12 +65,13 @@ class _$FlashcardCopyWithImpl<$Res>
 
 /// Create a copy of Flashcard
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? front = null,Object? back = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? front = null,Object? back = null,Object? rating = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,front: null == front ? _self.front : front // ignore: cast_nullable_to_non_nullable
 as String,back: null == back ? _self.back : back // ignore: cast_nullable_to_non_nullable
-as String,
+as String,rating: null == rating ? _self.rating : rating // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -155,10 +156,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String front,  String back)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String front,  String back,  int rating)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Flashcard() when $default != null:
-return $default(_that.id,_that.front,_that.back);case _:
+return $default(_that.id,_that.front,_that.back,_that.rating);case _:
   return orElse();
 
 }
@@ -176,10 +177,10 @@ return $default(_that.id,_that.front,_that.back);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String front,  String back)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String front,  String back,  int rating)  $default,) {final _that = this;
 switch (_that) {
 case _Flashcard():
-return $default(_that.id,_that.front,_that.back);case _:
+return $default(_that.id,_that.front,_that.back,_that.rating);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +197,10 @@ return $default(_that.id,_that.front,_that.back);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String front,  String back)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String front,  String back,  int rating)?  $default,) {final _that = this;
 switch (_that) {
 case _Flashcard() when $default != null:
-return $default(_that.id,_that.front,_that.back);case _:
+return $default(_that.id,_that.front,_that.back,_that.rating);case _:
   return null;
 
 }
@@ -211,12 +212,13 @@ return $default(_that.id,_that.front,_that.back);case _:
 @JsonSerializable()
 
 class _Flashcard implements Flashcard {
-  const _Flashcard({required this.id, required this.front, required this.back});
+  const _Flashcard({required this.id, required this.front, required this.back, this.rating = 0});
   factory _Flashcard.fromJson(Map<String, dynamic> json) => _$FlashcardFromJson(json);
 
 @override final  String id;
 @override final  String front;
 @override final  String back;
+@override@JsonKey() final  int rating;
 
 /// Create a copy of Flashcard
 /// with the given fields replaced by the non-null parameter values.
@@ -231,16 +233,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Flashcard&&(identical(other.id, id) || other.id == id)&&(identical(other.front, front) || other.front == front)&&(identical(other.back, back) || other.back == back));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Flashcard&&(identical(other.id, id) || other.id == id)&&(identical(other.front, front) || other.front == front)&&(identical(other.back, back) || other.back == back)&&(identical(other.rating, rating) || other.rating == rating));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,front,back);
+int get hashCode => Object.hash(runtimeType,id,front,back,rating);
 
 @override
 String toString() {
-  return 'Flashcard(id: $id, front: $front, back: $back)';
+  return 'Flashcard(id: $id, front: $front, back: $back, rating: $rating)';
 }
 
 
@@ -251,7 +253,7 @@ abstract mixin class _$FlashcardCopyWith<$Res> implements $FlashcardCopyWith<$Re
   factory _$FlashcardCopyWith(_Flashcard value, $Res Function(_Flashcard) _then) = __$FlashcardCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String front, String back
+ String id, String front, String back, int rating
 });
 
 
@@ -268,12 +270,13 @@ class __$FlashcardCopyWithImpl<$Res>
 
 /// Create a copy of Flashcard
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? front = null,Object? back = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? front = null,Object? back = null,Object? rating = null,}) {
   return _then(_Flashcard(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,front: null == front ? _self.front : front // ignore: cast_nullable_to_non_nullable
 as String,back: null == back ? _self.back : back // ignore: cast_nullable_to_non_nullable
-as String,
+as String,rating: null == rating ? _self.rating : rating // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 

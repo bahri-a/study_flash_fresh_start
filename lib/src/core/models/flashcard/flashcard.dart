@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'flashcard.freezed.dart';
@@ -10,6 +9,8 @@ abstract class Flashcard with _$Flashcard {
     required String id,
     required String front,
     required String back,
+
+    @Default(0) int rating,
     // Später:
     // required bool isCorrect,
     // required DateTime lastLearned,

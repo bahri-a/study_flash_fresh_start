@@ -7,14 +7,29 @@ import 'package:study_flash/src/features/study/presentation/widgets/study_screen
 import 'package:study_flash/src/features/study/presentation/widgets/study_screen_widgets/flashcard_view.dart';
 import 'package:study_flash/src/features/study/presentation/widgets/show_add_flashcard_dialog.dart';
 
-class StudyScreen extends ConsumerWidget {
+class StudyScreen extends ConsumerStatefulWidget {
   final String subjectId;
   final String topicId;
+
   const StudyScreen({super.key, required this.subjectId, required this.topicId});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final params = (subjectId: subjectId, topicId: topicId);
+  ConsumerState<StudyScreen> createState() => _StudyScreenState();
+}
+
+class _StudyScreenState extends ConsumerState<StudyScreen> {
+  final pageController = PageController(viewportFraction: 0.9);
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final params = (subjectId: widget.subjectId, topicId: widget.topicId);
+
     final asyncFlashcards = ref.watch(flashcardListProvider(params));
     final currentTopic = ref.watch(currentTopicProvider(params));
 
@@ -40,7 +55,7 @@ class StudyScreen extends ConsumerWidget {
             return Center(
               child: ElevatedButton(
                 onPressed: () {
-                  context.push("/addFlashcardScreen/$subjectId/$topicId");
+                  context.push("/addFlashcardScreen/${widget.subjectId}/${widget.topicId}");
                 },
                 child: Text("Erstes Flashcard hinzufügen"),
               ),
@@ -55,6 +70,7 @@ class StudyScreen extends ConsumerWidget {
                   height: 350,
                   width: double.infinity,
                   child: PageView.builder(
+                    controller: pageController,
                     itemCount: flashcards.length,
                     itemBuilder: (context, index) {
                       final card = flashcards[index];
@@ -62,7 +78,11 @@ class StudyScreen extends ConsumerWidget {
                     },
                   ),
                 ),
-                IconsForFlashcard(),
+                IconsForFlashcard(
+                  subjectId: widget.subjectId,
+                  topicId: widget.topicId,
+                  controller: pageController,
+                ),
               ],
             ),
           );
