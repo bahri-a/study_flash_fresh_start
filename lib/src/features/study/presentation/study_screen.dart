@@ -45,12 +45,34 @@ class StudyScreen extends ConsumerWidget {
               ),
             );
           }
-          return PageView.builder(
-            itemCount: flashcards.length,
-            itemBuilder: (context, index) {
-              final card = flashcards[index];
-              return FlashcardView(flashcard: card);
-            },
+          return Align(
+            alignment: Alignment(0, -0.5),
+            child: Column(
+              mainAxisSize: .min,
+              children: [
+                SizedBox(
+                  height: 350,
+                  width: double.infinity,
+                  child: PageView.builder(
+                    itemCount: flashcards.length,
+                    itemBuilder: (context, index) {
+                      final card = flashcards[index];
+                      return FlashcardView(flashcard: card);
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 40, left: 40),
+                  child: Row(
+                    mainAxisAlignment: .spaceBetween,
+                    children: [
+                      Icon(Icons.thumb_down, color: Colors.red, size: 60),
+                      Icon(Icons.thumb_up, color: Colors.green, size: 60),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
