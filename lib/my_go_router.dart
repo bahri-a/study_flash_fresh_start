@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:study_flash/src/core/models/topic/topic.dart';
 import 'package:study_flash/src/core/providers/auth_provider.dart';
 import 'package:study_flash/shell_screen.dart';
+import 'package:study_flash/src/features/cards/cards_screen.dart';
 import 'package:study_flash/src/features/home/presentation/home_screen.dart';
 import 'package:study_flash/src/features/login/login_screen.dart';
 import 'package:study_flash/src/features/register/register_screen.dart';
@@ -45,14 +46,9 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             routes: [GoRoute(path: '/', builder: (context, state) => HomeScreen())],
           ),
 
-          // StatefulShellBranch(
-          //   routes: [
-          //     GoRoute(
-          //       path: '/Cardsscreen',
-          //       builder: (context, state) => CardsScreen(),
-          //     ),
-          //   ],
-          // ),
+          StatefulShellBranch(
+            routes: [GoRoute(path: '/cardsscreen', builder: (context, state) => CardsScreen())],
+          ),
 
           // StatefulShellBranch(
           //   routes: [
@@ -106,6 +102,13 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             topicId: state.pathParameters['topicId']!,
           );
           return AddFlashcardScreen(params: params);
+        },
+      ),
+
+      GoRoute(
+        path: '/cardsscreen',
+        builder: (context, state) {
+          return CardsScreen();
         },
       ),
 
