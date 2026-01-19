@@ -19,6 +19,7 @@ class AddFlashcardScreen extends ConsumerWidget {
             constraints: BoxConstraints(maxHeight: 250, maxWidth: 350),
           ),
           onTap: () {
+            //!todo: Direkt auf die Flashcard schreiben statt popup-Dialog
             showAddFlashcardDialog(context, ref, params);
           },
         ),
