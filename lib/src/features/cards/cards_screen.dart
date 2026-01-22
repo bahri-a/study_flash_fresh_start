@@ -71,7 +71,9 @@ class CardsScreen extends ConsumerWidget {
                             color: Colors.grey,
                             cardsTopics: () {
                               // Rüber zu CardsTopics
-                              context.push("/cardstopics/${data[index].id}");
+                              context.push(
+                                "/cardstopics/${data[index].id}/${data[index].subjectName}",
+                              );
                             },
                           );
                         },
@@ -104,10 +106,11 @@ class CardsScreen extends ConsumerWidget {
         cardsTopics();
       },
       child: Container(
-        margin: const EdgeInsets.only(bottom: 16),
+        alignment: Alignment.centerLeft,
+        margin: const EdgeInsets.only(bottom: 15),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(50),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.05),
@@ -117,60 +120,14 @@ class CardsScreen extends ConsumerWidget {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                subject,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: color.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      title,
-                      style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 10),
-                    ),
-                  ),
-                  // PopupMenuButton(
-                  //   icon: const Icon(Icons.more_horiz, color: Colors.grey),
-                  //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                  //   onSelected: (value) {
-                  //     if (value == "delete") {
-                  //       cardsTopics();
-                  //     }
-                  //   },
-                  //   itemBuilder: (context) {
-                  //     return [
-                  //       const PopupMenuItem(
-                  //         // Wichtig: Der Wert, der an onSelected gesendet wird
-                  //         value: 'delete',
-                  //         child: Row(
-                  //           children: [
-                  //             Icon(Icons.delete_outline, color: Colors.red),
-                  //             SizedBox(width: 10),
-                  //             Text("Löschen", style: TextStyle(color: Colors.red)),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ];
-                  //   },
-                  // ),
-                ],
-              ),
-            ],
+          padding: const EdgeInsets.only(top: 15, bottom: 15, left: 25),
+          child: Text(
+            subject,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
           ),
         ),
       ),

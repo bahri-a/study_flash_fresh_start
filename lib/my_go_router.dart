@@ -114,10 +114,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       ),
 
       GoRoute(
-        path: '/cardstopics/:subjectId',
+        path: '/cardstopics/:subjectId/:subjectName',
         builder: (context, state) {
           final String subjectId = state.pathParameters['subjectId']!;
-          return CardsTopics(subjectId: subjectId);
+          final String subjectName = state.pathParameters['subjectName']!;
+          return CardsTopics(subjectId: subjectId, subjectName: subjectName);
         },
       ),
 

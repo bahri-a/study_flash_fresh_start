@@ -6,8 +6,9 @@ import 'package:study_flash/src/core/providers/topic_provider.dart';
 
 //todo: Mach, dass Topics in buildCardItem angezeigt werden statt Subjects
 class CardsTopics extends ConsumerWidget {
-  String subjectId;
-  CardsTopics({super.key, required this.subjectId});
+  final String subjectId;
+  final String subjectName;
+  const CardsTopics({super.key, required this.subjectId, required this.subjectName});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -16,8 +17,8 @@ class CardsTopics extends ConsumerWidget {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: const Text(
-          "Topics von ",
+        title: Text(
+          "Topics von $subjectName",
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.transparent,
