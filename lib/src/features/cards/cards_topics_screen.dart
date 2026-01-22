@@ -4,16 +4,14 @@ import 'package:study_flash/src/core/providers/flashcard_provider.dart';
 import 'package:study_flash/src/core/providers/subject_provider.dart';
 import 'package:study_flash/src/core/providers/topic_provider.dart';
 
+//todo: Mach, dass Topics in buildCardItem angezeigt werden statt Subjects
 class CardsTopics extends ConsumerWidget {
   String subjectId;
   CardsTopics({super.key, required this.subjectId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final subjectsData = ref.watch(subjectsListProvider);
-    final subjectsProvider = ref.watch(subjectRepositoryProvider);
-    //final subjectId = subjectsProvider.
-    //final subjectName = subjectsProvider.getCurrentSubject(subjectId: );
+    final topicsProvider = ref.watch(topicsListProvider(subjectId));
 
     return Scaffold(
       backgroundColor: Colors.grey[50],
@@ -56,10 +54,10 @@ class CardsTopics extends ConsumerWidget {
             ),
             const SizedBox(height: 20),
             Expanded(
-              child: subjectsData.when(
+              child: topicsProvider.when(
                 data: (data) {
                   if (data.isEmpty) {
-                    return Center(child: Text("Keine Cards vorhanden"));
+                    return Center(child: Text("Keine Topics vorhanden"));
                   } else {
                     return Padding(
                       padding: const EdgeInsets.only(right: 15, left: 15),
@@ -68,7 +66,7 @@ class CardsTopics extends ConsumerWidget {
                         itemBuilder: (context, index) {
                           return _buildCardItem(
                             title: "progress XYZZZZ",
-                            subject: data[index].subjectName,
+                            subject: data[index].topicName,
                             color: Colors.grey,
                             onDelete: () {},
                           );

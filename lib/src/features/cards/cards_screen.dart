@@ -70,7 +70,8 @@ class CardsScreen extends ConsumerWidget {
                             subject: data[index].subjectName,
                             color: Colors.grey,
                             cardsTopics: () {
-                              context.push("/cardstopics/${data[index].subjectName}");
+                              // Rüber zu CardsTopics
+                              context.push("/cardstopics/${data[index].id}");
                             },
                           );
                         },
