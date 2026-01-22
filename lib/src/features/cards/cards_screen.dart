@@ -61,7 +61,7 @@ class CardsScreen extends ConsumerWidget {
                   } else {
                     return Padding(
                       padding: const EdgeInsets.only(right: 15, left: 15),
-                      //todo: Hier InkWell
+
                       child: ListView.builder(
                         itemCount: data.length,
                         itemBuilder: (context, index) {
@@ -109,7 +109,7 @@ class CardsScreen extends ConsumerWidget {
         alignment: Alignment.centerLeft,
         margin: const EdgeInsets.only(bottom: 15),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: const Color.fromARGB(150, 209, 178, 94),
           borderRadius: BorderRadius.circular(50),
           boxShadow: [
             BoxShadow(

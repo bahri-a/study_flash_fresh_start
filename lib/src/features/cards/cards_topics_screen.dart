@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:study_flash/src/core/providers/flashcard_provider.dart';
 import 'package:study_flash/src/core/providers/subject_provider.dart';
 import 'package:study_flash/src/core/providers/topic_provider.dart';
+import 'package:go_router/go_router.dart';
 
 //todo: Mach, dass Topics in buildCardItem angezeigt werden statt Subjects
 class CardsTopics extends ConsumerWidget {
@@ -67,8 +68,9 @@ class CardsTopics extends ConsumerWidget {
                         itemBuilder: (context, index) {
                           return _buildCardItem(
                             title: "progress XYZZZZ",
-                            subject: data[index].topicName,
-                            color: Colors.grey,
+                            topicName: data[index].topicName,
+                            topicId: data[index].id,
+                            context: context,
                             onDelete: () {},
                           );
                         },
@@ -92,78 +94,83 @@ class CardsTopics extends ConsumerWidget {
 
   Widget _buildCardItem({
     required String title,
-    required String subject,
-    required Color color,
+    required String topicName,
+    required String topicId,
+    required BuildContext context,
     required VoidCallback onDelete,
   }) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              subject,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-              ),
+    return InkWell(
+      onTap: () {
+        context.push("/editcards/$subjectId/$topicId");
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(150, 209, 178, 94),
+          borderRadius: BorderRadius.circular(50),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
             ),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10, left: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: color.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    title,
-                    style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 10),
+                Text(
+                  topicName,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
                   ),
                 ),
-                PopupMenuButton(
-                  icon: const Icon(Icons.more_horiz, color: Colors.grey),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                  onSelected: (value) {
-                    if (value == "delete") {
-                      onDelete();
-                    }
-                  },
-                  itemBuilder: (context) {
-                    return [
-                      const PopupMenuItem(
-                        // Wichtig: Der Wert, der an onSelected gesendet wird
-                        value: 'delete',
-                        child: Row(
-                          children: [
-                            Icon(Icons.delete_outline, color: Colors.red),
-                            SizedBox(width: 10),
-                            Text("Löschen", style: TextStyle(color: Colors.red)),
-                          ],
-                        ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12,
                       ),
-                    ];
-                  },
+                    ),
+                    PopupMenuButton(
+                      icon: const Icon(Icons.more_horiz, color: Colors.grey),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                      onSelected: (value) {
+                        if (value == "delete") {
+                          onDelete();
+                        }
+                      },
+                      itemBuilder: (context) {
+                        return [
+                          const PopupMenuItem(
+                            // Wichtig: Der Wert, der an onSelected gesendet wird
+                            value: 'delete',
+                            child: Row(
+                              children: [
+                                Icon(Icons.delete_outline, color: Colors.red),
+                                SizedBox(width: 10),
+                                Text("Löschen", style: TextStyle(color: Colors.red)),
+                              ],
+                            ),
+                          ),
+                        ];
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );

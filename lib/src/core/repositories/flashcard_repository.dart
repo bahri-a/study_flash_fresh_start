@@ -68,4 +68,24 @@ class FlashcardRepository {
       data: {'rating': newRating},
     );
   }
+
+  //
+  //____________________________
+  //
+
+  Future<void> updateFlashcard({
+    required String front,
+    required String back,
+    required String flashcardId,
+  }) async {
+    final uid = authRepository.currentUser?.uid;
+    if (uid == null) return;
+
+    final collectionPath = "users/$uid/subjects/$subjectId/topics/$topicId/flashcards";
+    //final generatedId = FirebaseFirestore.instance.collection('flashcards').doc().id;
+
+    final Map<String, dynamic> changes = {'front': front, 'back': back};
+
+    await coreService.updateDocument(path: collectionPath, docId: flashcardId, data: changes);
+  }
 }

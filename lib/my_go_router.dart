@@ -5,12 +5,15 @@ import 'package:study_flash/src/core/providers/auth_provider.dart';
 import 'package:study_flash/shell_screen.dart';
 import 'package:study_flash/src/features/cards/cards_screen.dart';
 import 'package:study_flash/src/features/cards/cards_topics_screen.dart';
+import 'package:study_flash/src/features/edit/edit_cards.dart';
+import 'package:study_flash/src/features/edit/widgets/flashcard_view_for_edit.dart';
 import 'package:study_flash/src/features/home/presentation/home_screen.dart';
 import 'package:study_flash/src/features/login/login_screen.dart';
 import 'package:study_flash/src/features/register/register_screen.dart';
 import 'package:study_flash/src/features/study/presentation/add_flashcard_screen.dart';
 import 'package:study_flash/src/features/study/presentation/study_screen.dart';
 import 'package:study_flash/src/features/study/presentation/studytopics_screen.dart';
+import 'package:study_flash/src/features/study/presentation/widgets/study_screen_widgets/flashcard_view.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateChangesProvider);
@@ -127,6 +130,15 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) {
           final String subjectId = state.pathParameters['subjectId']!;
           return StudytopicsScreen(subjectId: subjectId);
+        },
+      ),
+
+      GoRoute(
+        path: '/editcards/:subjectId/:topicId',
+        builder: (context, state) {
+          final String subjectId = state.pathParameters['subjectId']!;
+          final String topicId = state.pathParameters['topicId']!;
+          return EditCards(subjectId: subjectId, topicId: topicId);
         },
       ),
 

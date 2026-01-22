@@ -18,7 +18,7 @@ class StudyScreen extends ConsumerStatefulWidget {
 }
 
 class _StudyScreenState extends ConsumerState<StudyScreen> {
-  final pageController = PageController(viewportFraction: 0.9);
+  final pageController = PageController(viewportFraction: 0.97);
 
   @override
   void dispose() {
