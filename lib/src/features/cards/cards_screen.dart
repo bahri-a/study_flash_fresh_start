@@ -109,7 +109,7 @@ class CardsScreen extends ConsumerWidget {
         alignment: Alignment.centerLeft,
         margin: const EdgeInsets.only(bottom: 15),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(150, 209, 178, 94),
+          color: const Color.fromARGB(149, 219, 191, 114),
           borderRadius: BorderRadius.circular(50),
           boxShadow: [
             BoxShadow(

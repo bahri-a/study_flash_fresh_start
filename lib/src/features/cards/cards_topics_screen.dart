@@ -106,7 +106,7 @@ class CardsTopics extends ConsumerWidget {
       child: Container(
         margin: const EdgeInsets.only(bottom: 16),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(150, 209, 178, 94),
+          color: const Color.fromARGB(149, 219, 191, 114),
           borderRadius: BorderRadius.circular(50),
           boxShadow: [
             BoxShadow(
