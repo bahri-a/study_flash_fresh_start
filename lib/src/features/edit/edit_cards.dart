@@ -88,22 +88,9 @@ class _StudyScreenState extends ConsumerState<EditCards> {
 
     final currentTopic = ref.watch(currentTopicProvider(params));
     final asyncFlashcards = ref.watch(flashcardListProvider(params));
+    final flashcardRepo = ref.watch(flashcardrepositoryProvider(params));
 
     return Scaffold(
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(right: 10, bottom: 20),
-        child: FloatingActionButton(
-          onPressed: () {
-            return showAddFlashcardDialog(context, ref, params);
-          },
-          child: Icon(
-            Icons.add,
-            size: 40,
-            color: Colors.green.shade800,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: currentTopic.when(
@@ -133,7 +120,7 @@ class _StudyScreenState extends ConsumerState<EditCards> {
             );
           }
           return Align(
-            alignment: Alignment(0, -0.5),
+            alignment: Alignment(0, -0.3),
             child: Column(
               mainAxisSize: .min,
               children: [
@@ -154,16 +141,52 @@ class _StudyScreenState extends ConsumerState<EditCards> {
                     },
                   ),
                 ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.only(right: 25, left: 25),
+                  child: Row(
+                    mainAxisAlignment: .spaceBetween,
+                    children: [
+                      FloatingActionButton(
+                        heroTag: "deleteButton",
+                        mini: false,
+                        onPressed: () async {
+                          final currentCard = flashcards[_currentIndex];
+                          await flashcardRepo.deleteFlashcard(flashcardId: currentCard.id);
+                          ref.invalidate(flashcardListProvider);
+                        },
+                        child: Icon(Icons.delete_forever_outlined),
+                      ),
+                      FloatingActionButton(
+                        heroTag: "editButton",
+                        mini: false,
+                        onPressed: () {
+                          final currentCard = flashcards[_currentIndex];
+                          _showEditDialog(context, currentCard);
+                        },
+                        child: Icon(Icons.edit),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 50),
                 Align(
-                  alignment: AlignmentGeometry.bottomRight,
+                  alignment: Alignment.centerRight,
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: IconButton(
-                      icon: Icon(Icons.edit, size: 40),
+                    padding: const EdgeInsets.only(right: 25),
+                    child: FloatingActionButton(
+                      backgroundColor: Colors.green,
+                      heroTag: "addButton",
+                      mini: false,
                       onPressed: () {
-                        final currentCard = flashcards[_currentIndex];
-                        _showEditDialog(context, currentCard);
+                        return showAddFlashcardDialog(context, ref, params);
                       },
+                      child: Icon(
+                        Icons.add,
+                        size: 30,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),

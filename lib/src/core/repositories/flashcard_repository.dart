@@ -16,6 +16,19 @@ class FlashcardRepository {
     required this.topicId,
   });
 
+  Future<void> deleteFlashcard({required String flashcardId}) async {
+    final uid = authRepository.currentUser?.uid;
+    if (uid == null) return;
+
+    final path = "users/$uid/subjects/$subjectId/topics/$topicId/flashcards";
+
+    await coreService.deleteDocument(docId: flashcardId, path: path);
+  }
+
+  //
+  //_________________________
+  //
+
   // Add Flashcard
   Future<void> addFlashcard({required String front, required String back}) async {
     final uid = authRepository.currentUser?.uid;
