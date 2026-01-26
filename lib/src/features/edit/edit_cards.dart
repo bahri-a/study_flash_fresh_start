@@ -90,6 +90,20 @@ class _StudyScreenState extends ConsumerState<EditCards> {
     final asyncFlashcards = ref.watch(flashcardListProvider(params));
 
     return Scaffold(
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(right: 10, bottom: 20),
+        child: FloatingActionButton(
+          onPressed: () {
+            return showAddFlashcardDialog(context, ref, params);
+          },
+          child: Icon(
+            Icons.add,
+            size: 40,
+            color: Colors.green.shade800,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: currentTopic.when(
@@ -143,9 +157,9 @@ class _StudyScreenState extends ConsumerState<EditCards> {
                 Align(
                   alignment: AlignmentGeometry.bottomRight,
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 25),
+                    padding: const EdgeInsets.only(right: 20),
                     child: IconButton(
-                      icon: Icon(Icons.edit),
+                      icon: Icon(Icons.edit, size: 40),
                       onPressed: () {
                         final currentCard = flashcards[_currentIndex];
                         _showEditDialog(context, currentCard);
