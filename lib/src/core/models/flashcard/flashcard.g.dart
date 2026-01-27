@@ -10,6 +10,7 @@ _Flashcard _$FlashcardFromJson(Map<String, dynamic> json) => _Flashcard(
   id: json['id'] as String,
   front: json['front'] as String,
   back: json['back'] as String,
+  userId: json['userId'] as String,
   rating: (json['rating'] as num?)?.toInt() ?? 0,
 );
 
@@ -18,5 +19,6 @@ Map<String, dynamic> _$FlashcardToJson(_Flashcard instance) =>
       'id': instance.id,
       'front': instance.front,
       'back': instance.back,
+      'userId': instance.userId,
       'rating': instance.rating,
     };

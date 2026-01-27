@@ -37,7 +37,7 @@ class FlashcardRepository {
     final collectionPath = "users/$uid/subjects/$subjectId/topics/$topicId/flashcards";
     final generatedId = FirebaseFirestore.instance.collection('flashcards').doc().id;
 
-    final newCard = Flashcard(id: generatedId, front: front, back: back);
+    final newCard = Flashcard(id: generatedId, front: front, back: back, userId: uid);
 
     await coreService.setDocument(path: collectionPath, docId: generatedId, data: newCard.toJson());
   }

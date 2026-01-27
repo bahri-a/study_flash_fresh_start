@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:study_flash/src/core/models/flashcard/flashcard.dart';
+import 'package:study_flash/src/core/providers/charts_provider.dart';
 import 'package:study_flash/src/core/providers/flashcard_provider.dart';
 
 class ChartsScreen extends ConsumerWidget {
@@ -12,6 +14,11 @@ class ChartsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final allCardsOfUser = ref.watch(allFlashcardsOfUser);
+    final highRatedCount = ref.watch(highRatedCards);
+    final lowRatedCount = ref.watch(lowRatedCards);
+    final stats = ref.watch(statsPercentage);
+
     return Scaffold(
       backgroundColor: backgroundGrey,
       body: SingleChildScrollView(
@@ -20,7 +27,12 @@ class ChartsScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSummaryCard(),
+              _buildSummaryCard(
+                allCardsAsync: allCardsOfUser,
+                highRatedAsync: highRatedCount,
+                lowRatedAsync: lowRatedCount,
+                stats: stats,
+              ),
 
               const SizedBox(height: 30),
 
@@ -55,32 +67,36 @@ class ChartsScreen extends ConsumerWidget {
   }
 
   // Widget für gesamte Zusammenfassung
-  Widget _buildSummaryCard() {
+  Widget _buildSummaryCard({
+    required AsyncValue<int> highRatedAsync,
+    required AsyncValue<int> lowRatedAsync,
+    required AsyncValue<List<Flashcard>> allCardsAsync,
+    required AsyncValue<List<double>> stats,
+  }) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.only(top: 10, bottom: 20, right: 20, left: 20),
       decoration: BoxDecoration(color: accentBeige, borderRadius: BorderRadius.circular(30)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        crossAxisAlignment: .center,
         children: [
-          Column(
-            //todo:
-            //! Alle Karte, die ein rating von 1-3 haben unter "Gesamt Kurzzeitgedächtnis" zusammenaddieren. Und alle ratings 4 aufwärts in "Langzeitgedächnis" zusammenfassen
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text("Gesamt gelernt", style: TextStyle(color: Colors.black54, fontSize: 14)),
-              const SizedBox(height: 5),
-              const Text(
-                "1.240 Karten",
-                style: TextStyle(color: Colors.black87, fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-            ],
+          const Text(
+            "Lernstatus",
+            style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
           ),
-          Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(color: Colors.white.withOpacity(0.5), shape: BoxShape.circle),
-            child: const Icon(Icons.bar_chart, color: Colors.black87),
+          SizedBox(height: 15),
+          CountRatedCards(
+            asyncData: highRatedAsync,
+            title: "Im Langzeitgedächtnis",
+            stats: stats,
+            isHigh: true,
+          ),
+          SizedBox(height: 20),
+          CountRatedCards(
+            asyncData: lowRatedAsync,
+            title: "Im Kurzzeitgedächtnis",
+            stats: stats,
+            isHigh: false,
           ),
         ],
       ),
@@ -171,6 +187,93 @@ class ChartsScreen extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class CountRatedCards extends StatelessWidget {
+  final AsyncValue<int> asyncData;
+  final String title;
+  final AsyncValue<List<double>> stats;
+  final bool isHigh;
+
+  const CountRatedCards({
+    super.key,
+    required this.asyncData,
+    required this.title,
+    required this.stats,
+    required this.isHigh,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        asyncData.when(
+          data: (count) {
+            return Column(
+              crossAxisAlignment: .start,
+              children: [
+                Text(title, style: TextStyle(color: Colors.black54, fontSize: 14)),
+                SizedBox(height: 5),
+                count != 1
+                    ? Text(
+                        "$count Karten",
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    : Text(
+                        "$count Karte",
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+              ],
+            );
+          },
+          error: (error, stackTrace) => const Text(""),
+          loading: () => const SizedBox(
+            height: 20,
+            width: 100,
+            child: CircularProgressIndicator(strokeWidth: 2),
+          ),
+        ),
+        isHigh == true
+            ? stats.when(
+                data: (percentage) => Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.5),
+                    shape: BoxShape.circle,
+                  ),
+                  // High-Cards Stats wegen Index 0
+                  child: Center(child: Text("${percentage[0]}")),
+                ),
+                error: (error, stackTrace) => Text(""),
+                loading: () => CircularProgressIndicator(strokeWidth: 2),
+              )
+            : stats.when(
+                data: (percentage) => Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.5),
+                    shape: BoxShape.circle,
+                  ),
+                  // Low-Cards Stats wegen Index 1
+                  child: Center(child: Text("${percentage[1]}")),
+                ),
+                error: (error, stackTrace) => Text(""),
+                loading: () => CircularProgressIndicator(strokeWidth: 2),
+              ),
+      ],
     );
   }
 }

@@ -9,6 +9,7 @@ abstract class Flashcard with _$Flashcard {
     required String id,
     required String front,
     required String back,
+    required String userId,
 
     @Default(0) int rating,
   }) = _Flashcard;
