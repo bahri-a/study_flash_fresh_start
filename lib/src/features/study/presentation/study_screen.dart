@@ -19,6 +19,7 @@ class StudyScreen extends ConsumerStatefulWidget {
 
 class _StudyScreenState extends ConsumerState<StudyScreen> {
   final pageController = PageController(viewportFraction: 0.97);
+  int _currentIndex = 0;
 
   @override
   void dispose() {
@@ -61,6 +62,10 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
               ),
             );
           }
+          // INDEX MANAGING
+          final safeIndex = _currentIndex >= flashcards.length ? 0 : _currentIndex;
+          final currentVisibleCard = flashcards[safeIndex];
+
           return Align(
             alignment: Alignment(0, -0.5),
             child: Column(
@@ -72,6 +77,11 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
                   child: PageView.builder(
                     controller: pageController,
                     itemCount: flashcards.length,
+                    onPageChanged: (index) {
+                      setState(() {
+                        _currentIndex = index;
+                      });
+                    },
                     itemBuilder: (context, index) {
                       final card = flashcards[index];
                       return FlashcardView(flashcard: card);
@@ -79,6 +89,7 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
                   ),
                 ),
                 IconsForFlashcard(
+                  flashcard: currentVisibleCard,
                   subjectId: widget.subjectId,
                   topicId: widget.topicId,
                   controller: pageController,
