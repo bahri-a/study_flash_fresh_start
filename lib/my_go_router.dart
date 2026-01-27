@@ -5,6 +5,7 @@ import 'package:study_flash/src/core/providers/auth_provider.dart';
 import 'package:study_flash/shell_screen.dart';
 import 'package:study_flash/src/features/cards/cards_screen.dart';
 import 'package:study_flash/src/features/cards/cards_topics_screen.dart';
+import 'package:study_flash/src/features/charts/charts_screen.dart';
 import 'package:study_flash/src/features/edit/edit_cards.dart';
 import 'package:study_flash/src/features/edit/widgets/flashcard_view_for_edit.dart';
 import 'package:study_flash/src/features/home/presentation/home_screen.dart';
@@ -54,14 +55,9 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             routes: [GoRoute(path: '/cardsscreen', builder: (context, state) => CardsScreen())],
           ),
 
-          // StatefulShellBranch(
-          //   routes: [
-          //     GoRoute(
-          //       path: '/Chartsscreen',
-          //       builder: (context, state) => ChartsScreen(),
-          //     ),
-          //   ],
-          // ),
+          StatefulShellBranch(
+            routes: [GoRoute(path: '/chartsscreen', builder: (context, state) => ChartsScreen())],
+          ),
         ],
       ),
 

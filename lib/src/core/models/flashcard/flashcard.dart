@@ -11,9 +11,6 @@ abstract class Flashcard with _$Flashcard {
     required String back,
 
     @Default(0) int rating,
-    // Später:
-    // required bool isCorrect,
-    // required DateTime lastLearned,
   }) = _Flashcard;
 
   factory Flashcard.fromJson(Map<String, dynamic> json) => _$FlashcardFromJson(json);
