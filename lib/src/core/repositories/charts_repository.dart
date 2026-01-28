@@ -22,6 +22,7 @@ class ChartsRepository {
 
       return allCards;
     } catch (e) {
+      print("Fehler: $e");
       return [];
     }
   }
