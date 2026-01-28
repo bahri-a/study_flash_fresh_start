@@ -13,7 +13,7 @@ class ChartsRepository {
           .where('userId', isEqualTo: userId)
           .get();
 
-      // Das Ergebnis mappen
+      // Das Ergebnis mappen bzw. iterieren
       final allCards = querySnapshot.docs.map((doc) {
         final data = doc.data();
         data['id'] = doc.id;
