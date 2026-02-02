@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:study_flash/src/core/models/flashcard/flashcard.dart';
 import 'package:study_flash/src/core/providers/auth_provider.dart';
@@ -54,7 +55,7 @@ final statsPercentage = Provider<AsyncValue<List<double>>>((ref) {
   final asyncLow = ref.watch(lowRatedCards);
 
   if (asyncHigh.isLoading || asyncLow.isLoading) {
-    return const AsyncLoading();
+    return const AsyncLoading(); //AsyncLoading();
   }
 
   final high = asyncHigh.value ?? 0;
@@ -63,7 +64,7 @@ final statsPercentage = Provider<AsyncValue<List<double>>>((ref) {
   final total = high + low;
 
   if (total == 0) {
-    return const AsyncData([0, 0]);
+    return const AsyncData([0.0, 0.0]);
   }
 
   return AsyncData([high / total, low / total]);

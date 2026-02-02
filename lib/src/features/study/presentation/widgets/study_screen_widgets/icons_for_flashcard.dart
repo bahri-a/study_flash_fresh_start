@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:study_flash/src/core/models/flashcard/flashcard.dart';
+import 'package:study_flash/src/core/providers/charts_provider.dart';
 import 'package:study_flash/src/core/providers/flashcard_provider.dart';
 
 //!todo NEXT: Flashcard rating rated die Karte davor. Das muss ich irgendwie anders lösen mit den onTap.
@@ -42,6 +43,9 @@ class IconsForFlashcard extends ConsumerWidget {
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut,
               );
+              // Damit die Statistik auf dem Charts-Screen als veraltet markiert wird.
+              // Wird erst neugeladen, wenn man auf das Charts-Screen geht.
+              ref.invalidate(allFlashcardsOfUser);
             },
           ),
           // DAUMEN HOCH
@@ -52,11 +56,15 @@ class IconsForFlashcard extends ConsumerWidget {
                 flashcardId: flashcardId,
                 newRating: currentRating < 6 ? currentRating + 1 : currentRating,
               );
+
               //ref.invalidate(flashcardListProvider(params));
               controller.nextPage(
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut,
               );
+              // Damit die Statistik auf dem Charts-Screen als veraltet markiert wird.
+              // Wird erst neugeladen, wenn man auf das Charts-Screen geht.
+              ref.invalidate(allFlashcardsOfUser);
             },
           ),
         ],

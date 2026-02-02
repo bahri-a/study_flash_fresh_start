@@ -210,69 +210,63 @@ class CountRatedCards extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        // --- LINKER TEIL (Anzahl der Karten)
         asyncData.when(
           data: (count) {
             return Column(
-              crossAxisAlignment: .start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: TextStyle(color: Colors.black54, fontSize: 14)),
-                SizedBox(height: 5),
-                count != 1
-                    ? Text(
-                        "$count Karten",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    : Text(
-                        "$count Karte",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                Text(title, style: const TextStyle(color: Colors.black54, fontSize: 14)),
+                const SizedBox(height: 5),
+                Text(
+                  count != 1 ? "$count Karten" : "$count Karte",
+                  style: const TextStyle(
+                    color: Colors.black87,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             );
           },
-          error: (error, stackTrace) => const Text(""),
+          error: (error, stackTrace) => const Text("-"),
           loading: () => const SizedBox(
             height: 20,
             width: 100,
             child: CircularProgressIndicator(strokeWidth: 2),
           ),
         ),
-        isHigh == true
-            ? stats.when(
-                data: (percentage) => Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.5),
-                    shape: BoxShape.circle,
-                  ),
-                  // High-Cards Stats wegen Index 0
-                  child: Center(child: Text("${percentage[0]}")),
+
+        // --- RECHTER TEIL (Prozentanzeige)
+        Container(
+          height: 50,
+          width: 50,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(color: Colors.white.withOpacity(0.5), shape: BoxShape.circle),
+          child: stats.when(
+            data: (percentageList) {
+              if (percentageList.length < 2) return const Text("-");
+              final double rawValue = isHigh ? percentageList[0] : percentageList[1];
+
+              final int percentValue = (rawValue * 100).toInt();
+
+              return Text(
+                "$percentValue%", // <--- HIER fügen wir das % Zeichen an
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                  fontSize: 16,
                 ),
-                error: (error, stackTrace) => Text(""),
-                loading: () => CircularProgressIndicator(strokeWidth: 2),
-              )
-            : stats.when(
-                data: (percentage) => Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.5),
-                    shape: BoxShape.circle,
-                  ),
-                  // Low-Cards Stats wegen Index 1
-                  child: Center(child: Text("${percentage[1]}")),
-                ),
-                error: (error, stackTrace) => Text(""),
-                loading: () => CircularProgressIndicator(strokeWidth: 2),
-              ),
+              );
+            },
+            error: (error, stackTrace) => const Icon(Icons.error, size: 20),
+            loading: () => const SizedBox(
+              height: 20,
+              width: 20,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            ),
+          ),
+        ),
       ],
     );
   }
