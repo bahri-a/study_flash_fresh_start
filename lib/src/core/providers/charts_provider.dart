@@ -22,15 +22,23 @@ final allFlashcardsOfUser = FutureProvider<List<Flashcard>>((ref) async {
   return repository.getAllFlashcardsOfUser();
 });
 
+//__
+//
+final allCountedCards = Provider<AsyncValue<int>>((ref) {
+  final asyncCards = ref.watch(allFlashcardsOfUser);
+  return asyncCards.whenData((cards) {
+    return cards.length;
+  });
+});
+
 //
 // ____________________
 //
 
 final highRatedCards = Provider<AsyncValue<int>>((ref) {
   final asyncCards = ref.watch(allFlashcardsOfUser);
-
   return asyncCards.whenData((cards) {
-    return cards.where((card) => card.rating >= 3).length;
+    return cards.where((card) => card.rating > 3).length;
   });
 });
 
@@ -40,9 +48,8 @@ final highRatedCards = Provider<AsyncValue<int>>((ref) {
 
 final lowRatedCards = Provider<AsyncValue<int>>((ref) {
   final asyncCards = ref.watch(allFlashcardsOfUser);
-
   return asyncCards.whenData((cards) {
-    return cards.where((card) => card.rating < 3 && card.rating > 0).length;
+    return cards.where((card) => card.rating < 4).length;
   });
 });
 

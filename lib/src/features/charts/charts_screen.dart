@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:study_flash/src/core/models/flashcard/flashcard.dart';
+import 'package:study_flash/src/core/providers/auth_provider.dart';
 import 'package:study_flash/src/core/providers/charts_provider.dart';
 import 'package:study_flash/src/core/providers/flashcard_provider.dart';
+import 'package:study_flash/src/core/repositories/charts_repository.dart';
 
 class ChartsScreen extends ConsumerWidget {
   const ChartsScreen({super.key});
@@ -19,6 +21,10 @@ class ChartsScreen extends ConsumerWidget {
     final lowRatedCount = ref.watch(lowRatedCards);
     final stats = ref.watch(statsPercentage);
 
+    //! Später entfernen - TESTZWECK
+    final allCards = ref.watch(allCountedCards);
+    //! Später entfernen - TESTZWECk
+
     return Scaffold(
       backgroundColor: backgroundGrey,
       body: SingleChildScrollView(
@@ -27,10 +33,16 @@ class ChartsScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              allCards.when(
+                data: (data) => Text("all Cards: $data"),
+                error: (error, stackTrace) => Text("error"),
+                loading: () => Text("lädt"),
+              ),
+              // LERNSTATUS
               _buildSummaryCard(
                 allCardsAsync: allCardsOfUser,
-                highRatedAsync: highRatedCount,
-                lowRatedAsync: lowRatedCount,
+                highRatedCountAsync: highRatedCount,
+                lowRatedCountAsync: lowRatedCount,
                 stats: stats,
               ),
 
@@ -68,8 +80,8 @@ class ChartsScreen extends ConsumerWidget {
 
   // Widget für gesamte Zusammenfassung
   Widget _buildSummaryCard({
-    required AsyncValue<int> highRatedAsync,
-    required AsyncValue<int> lowRatedAsync,
+    required AsyncValue<int> highRatedCountAsync,
+    required AsyncValue<int> lowRatedCountAsync,
     required AsyncValue<List<Flashcard>> allCardsAsync,
     required AsyncValue<List<double>> stats,
   }) {
@@ -86,14 +98,14 @@ class ChartsScreen extends ConsumerWidget {
           ),
           SizedBox(height: 15),
           CountRatedCards(
-            asyncData: highRatedAsync,
+            asyncCountData: highRatedCountAsync,
             title: "Im Langzeitgedächtnis",
             stats: stats,
             isHigh: true,
           ),
           SizedBox(height: 20),
           CountRatedCards(
-            asyncData: lowRatedAsync,
+            asyncCountData: lowRatedCountAsync,
             title: "Im Kurzzeitgedächtnis",
             stats: stats,
             isHigh: false,
@@ -192,14 +204,14 @@ class ChartsScreen extends ConsumerWidget {
 }
 
 class CountRatedCards extends StatelessWidget {
-  final AsyncValue<int> asyncData;
+  final AsyncValue<int> asyncCountData;
   final String title;
   final AsyncValue<List<double>> stats;
   final bool isHigh;
 
   const CountRatedCards({
     super.key,
-    required this.asyncData,
+    required this.asyncCountData,
     required this.title,
     required this.stats,
     required this.isHigh,
@@ -211,7 +223,7 @@ class CountRatedCards extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         // --- LINKER TEIL (Anzahl der Karten)
-        asyncData.when(
+        asyncCountData.when(
           data: (count) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
