@@ -36,13 +36,13 @@ class IconsForFlashcard extends ConsumerWidget {
           InkWell(
             child: Icon(Icons.thumb_down, color: Colors.red, size: 60),
             onTap: () async {
-              // bewusst ohne await
-              flashcardRepository.updateRating(flashcardId: flashcardId, newRating: 0);
-
               controller.nextPage(
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut,
               );
+
+              await flashcardRepository.updateRating(flashcardId: flashcardId, newRating: 0);
+
               // Damit die Statistik auf dem Charts-Screen als veraltet markiert wird.
               // Wird erst neugeladen, wenn man auf das Charts-Screen geht.
               ref.invalidate(allFlashcardsOfUser);
@@ -52,16 +52,18 @@ class IconsForFlashcard extends ConsumerWidget {
           InkWell(
             child: Icon(Icons.thumb_up, color: Colors.green, size: 60),
             onTap: () async {
-              flashcardRepository.updateRating(
-                flashcardId: flashcardId,
-                newRating: currentRating < 6 ? currentRating + 1 : currentRating,
-              );
-
-              //ref.invalidate(flashcardListProvider(params));
               controller.nextPage(
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut,
               );
+
+              await flashcardRepository.updateRating(
+                flashcardId: flashcardId,
+                newRating: currentRating < 6 ? currentRating + 1 : currentRating,
+              );
+
+              currentRating = currentRating + 1;
+
               // Damit die Statistik auf dem Charts-Screen als veraltet markiert wird.
               // Wird erst neugeladen, wenn man auf das Charts-Screen geht.
               ref.invalidate(allFlashcardsOfUser);

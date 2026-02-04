@@ -27,7 +27,10 @@ final flashcardrepositoryProvider = Provider.family<FlashcardRepository, Flashca
 //________________________
 //
 
-final flashcardListProvider = FutureProvider.family<List<Flashcard>, FlashcardParams>((ref, param) {
+final flashcardListProvider = FutureProvider.autoDispose.family<List<Flashcard>, FlashcardParams>((
+  ref,
+  param,
+) {
   final repository = ref.watch(flashcardrepositoryProvider(param));
 
   return repository.getFlashcards();
