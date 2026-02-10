@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:study_flash/src/core/models/flashcard/flashcard.dart';
-import 'package:study_flash/src/core/providers/auth_provider.dart';
 import 'package:study_flash/src/core/providers/charts_provider.dart';
-import 'package:study_flash/src/core/providers/flashcard_provider.dart';
-import 'package:study_flash/src/core/repositories/charts_repository.dart';
 
 class ChartsScreen extends ConsumerWidget {
   const ChartsScreen({super.key});
@@ -115,7 +112,7 @@ class ChartsScreen extends ConsumerWidget {
     );
   }
 
-  // Einfaches Balkendiagramm Widget
+  // Balkendiagramm //! mit Daten füllen
   Widget _buildActivityChart() {
     return Container(
       padding: const EdgeInsets.all(20),
@@ -142,7 +139,7 @@ class ChartsScreen extends ConsumerWidget {
     );
   }
 
-  // Ein einzelner Balken für das Diagramm
+  // Einzelner Balken  //! mit Daten füllen
   Widget _buildBar(String day, double percentage, {bool isSelected = false}) {
     return Column(
       children: [
@@ -167,7 +164,7 @@ class ChartsScreen extends ConsumerWidget {
     );
   }
 
-  // Zeile für Fach-Fortschritt
+  // Zeile für Fach-Fortschritt //! mit Daten füllen
   Widget _buildSubjectProgress(String title, double progress, Color color) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15.0),
