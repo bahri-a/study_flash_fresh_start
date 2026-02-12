@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:study_flash/src/core/providers/flashcard_provider.dart';
-import 'package:study_flash/src/core/providers/subject_provider.dart';
 import 'package:study_flash/src/core/providers/topic_provider.dart';
 import 'package:go_router/go_router.dart';
 
@@ -67,7 +65,7 @@ class CardsTopics extends ConsumerWidget {
                         itemCount: data.length,
                         itemBuilder: (context, index) {
                           return _buildCardItem(
-                            title: "progress XYZZZZ",
+                            title: "9 cards",
                             topicName: data[index].topicName,
                             topicId: data[index].id,
                             context: context,
@@ -106,7 +104,7 @@ class CardsTopics extends ConsumerWidget {
       child: Container(
         margin: const EdgeInsets.only(bottom: 16),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(149, 219, 191, 114),
+          color: const Color.fromRGBO(33, 150, 243, 1),
           borderRadius: BorderRadius.circular(50),
           boxShadow: [
             BoxShadow(
@@ -126,9 +124,9 @@ class CardsTopics extends ConsumerWidget {
                 Text(
                   topicName,
                   style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
                   ),
                 ),
                 Row(
@@ -137,13 +135,13 @@ class CardsTopics extends ConsumerWidget {
                     Text(
                       title,
                       style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 12,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
                       ),
                     ),
                     PopupMenuButton(
-                      icon: const Icon(Icons.more_horiz, color: Colors.grey),
+                      icon: const Icon(Icons.more_horiz, color: Color.fromARGB(255, 255, 255, 255)),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                       onSelected: (value) {
                         if (value == "delete") {

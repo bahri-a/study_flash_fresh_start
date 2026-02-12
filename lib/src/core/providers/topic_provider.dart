@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod/misc.dart';
 import 'package:study_flash/src/core/models/topic/topic.dart';
 import 'package:study_flash/src/core/providers/auth_provider.dart';
 import 'package:study_flash/src/core/repositories/topic_repository.dart';

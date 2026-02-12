@@ -5,7 +5,6 @@ import 'package:study_flash/src/core/models/flashcard/flashcard.dart';
 import 'package:study_flash/src/core/providers/flashcard_provider.dart';
 import 'package:study_flash/src/core/providers/topic_provider.dart';
 import 'package:study_flash/src/features/edit/widgets/flashcard_view_for_edit.dart';
-import 'package:study_flash/src/features/study/presentation/widgets/study_screen_widgets/icons_for_flashcard.dart';
 import 'package:study_flash/src/features/study/presentation/widgets/show_add_flashcard_dialog.dart';
 
 class EditCards extends ConsumerStatefulWidget {

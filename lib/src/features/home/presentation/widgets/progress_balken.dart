@@ -9,12 +9,7 @@ class ProgressBalken extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.only(
-            left: 10,
-            right: 10,
-            top: 5,
-            bottom: 5,
-          ),
+          padding: const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
           child: Container(
             height: 50,
             width: 340,
@@ -31,20 +26,14 @@ class ProgressBalken extends StatelessWidget {
                   Icon(
                     Icons.bar_chart_sharp,
                     size: 40,
-                    color: Colors.pink,
+                    color: const Color.fromARGB(255, 24, 128, 212),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "fach",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "x cards left",
-                        style: TextStyle(fontSize: 12),
-                      ),
+                      Text("Mathe", style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text("7 cards left to study", style: TextStyle(fontSize: 12)),
                     ],
                   ),
                   const Spacer(),

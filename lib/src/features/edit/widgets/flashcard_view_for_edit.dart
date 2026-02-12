@@ -20,8 +20,8 @@ class FlashcardViewForEditScreen extends StatelessWidget {
           width: 350,
           child: FlipCard(
             direction: FlipDirection.HORIZONTAL,
-            front: _buildCardSide(flashcard.front, Colors.brown.shade200),
-            back: _buildCardSide(flashcard.back, Colors.brown.shade400),
+            front: _buildCardSide(flashcard.front, const Color.fromRGBO(33, 150, 243, 1)),
+            back: _buildCardSide(flashcard.back, const Color.fromRGBO(33, 110, 203, 1)),
           ),
         ),
       ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:study_flash/src/core/providers/subject_provider.dart';
 import 'package:study_flash/src/core/providers/topic_provider.dart';
 
 void showAddTopicDialog(BuildContext context, WidgetRef ref, String subjectId) {

@@ -8,7 +8,7 @@ class ChartsScreen extends ConsumerWidget {
 
   // Farben
   final Color primaryBlue = const Color(0xFF2196F3);
-  final Color accentBeige = const Color(0xFFE6D8B6);
+  final Color myBlueColor = const Color.fromRGBO(33, 150, 243, 1);
   final Color backgroundGrey = const Color(0xFFFAFAFA);
 
   @override
@@ -85,13 +85,13 @@ class ChartsScreen extends ConsumerWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.only(top: 10, bottom: 20, right: 20, left: 20),
-      decoration: BoxDecoration(color: accentBeige, borderRadius: BorderRadius.circular(30)),
+      decoration: BoxDecoration(color: myBlueColor, borderRadius: BorderRadius.circular(30)),
       child: Column(
         crossAxisAlignment: .center,
         children: [
           const Text(
             "Lernstatus",
-            style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+            style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
           ),
           SizedBox(height: 15),
           CountRatedCards(
@@ -225,13 +225,13 @@ class CountRatedCards extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(color: Colors.black54, fontSize: 14)),
+                Text(title, style: const TextStyle(color: Colors.white, fontSize: 15)),
                 const SizedBox(height: 5),
                 Text(
                   count != 1 ? "$count Karten" : "$count Karte",
                   style: const TextStyle(
-                    color: Colors.black87,
-                    fontSize: 24,
+                    color: Colors.white,
+                    fontSize: 23,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -248,10 +248,10 @@ class CountRatedCards extends StatelessWidget {
 
         // --- RECHTER TEIL (Prozentanzeige)
         Container(
-          height: 50,
-          width: 50,
+          height: 55,
+          width: 55,
           alignment: Alignment.center,
-          decoration: BoxDecoration(color: Colors.white.withOpacity(0.5), shape: BoxShape.circle),
+          decoration: BoxDecoration(color: Colors.black54, shape: BoxShape.circle),
           child: stats.when(
             data: (percentageList) {
               if (percentageList.length < 2) return const Text("-");
@@ -263,8 +263,8 @@ class CountRatedCards extends StatelessWidget {
                 "$percentValue%", // <--- HIER fügen wir das % Zeichen an
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                  fontSize: 16,
+                  color: Colors.white,
+                  fontSize: 15,
                 ),
               );
             },

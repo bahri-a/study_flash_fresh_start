@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:study_flash/src/core/models/flashcard/flashcard.dart';
 import 'package:study_flash/src/core/providers/auth_provider.dart';

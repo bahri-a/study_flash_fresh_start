@@ -1,20 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:study_flash/src/core/models/topic/topic.dart';
 import 'package:study_flash/src/core/providers/auth_provider.dart';
 import 'package:study_flash/shell_screen.dart';
 import 'package:study_flash/src/features/cards/cards_screen.dart';
 import 'package:study_flash/src/features/cards/cards_topics_screen.dart';
 import 'package:study_flash/src/features/charts/charts_screen.dart';
 import 'package:study_flash/src/features/edit/edit_cards.dart';
-import 'package:study_flash/src/features/edit/widgets/flashcard_view_for_edit.dart';
 import 'package:study_flash/src/features/home/presentation/home_screen.dart';
 import 'package:study_flash/src/features/login/login_screen.dart';
 import 'package:study_flash/src/features/register/register_screen.dart';
 import 'package:study_flash/src/features/study/presentation/add_flashcard_screen.dart';
 import 'package:study_flash/src/features/study/presentation/study_screen.dart';
 import 'package:study_flash/src/features/study/presentation/studytopics_screen.dart';
-import 'package:study_flash/src/features/study/presentation/widgets/study_screen_widgets/flashcard_view.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateChangesProvider);

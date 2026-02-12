@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:study_flash/src/core/providers/flashcard_provider.dart';
 import 'package:study_flash/src/core/providers/subject_provider.dart';
-import 'package:study_flash/src/core/providers/topic_provider.dart';
 
 class CardsScreen extends ConsumerWidget {
   const CardsScreen({super.key});
@@ -66,7 +64,7 @@ class CardsScreen extends ConsumerWidget {
                         itemCount: data.length,
                         itemBuilder: (context, index) {
                           return _buildCardItem(
-                            title: "progress XY",
+                            title: "9 cards",
                             subject: data[index].subjectName,
                             color: Colors.grey,
                             cardsTopics: () {
@@ -109,7 +107,7 @@ class CardsScreen extends ConsumerWidget {
         alignment: Alignment.centerLeft,
         margin: const EdgeInsets.only(bottom: 15),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(149, 219, 191, 114),
+          color: const Color.fromRGBO(33, 150, 243, 1),
           borderRadius: BorderRadius.circular(50),
           boxShadow: [
             BoxShadow(
@@ -120,14 +118,10 @@ class CardsScreen extends ConsumerWidget {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.only(top: 15, bottom: 15, left: 25),
+          padding: const EdgeInsets.only(top: 15, bottom: 15, left: 30),
           child: Text(
             subject,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: Colors.white),
           ),
         ),
       ),
