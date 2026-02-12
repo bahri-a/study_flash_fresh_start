@@ -31,7 +31,7 @@ class HomeScreen extends ConsumerWidget {
         children: [
           HomeHeader(),
           SizedBox(height: 10),
-          ProgressBalken(),
+          //ProgressBalken(),
           SizedBox(height: 10),
           GridViewSubjects(),
         ],

@@ -18,18 +18,14 @@ class CreateBox extends StatelessWidget {
             height: 140,
             width: 180,
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: const Color.fromRGBO(33, 150, 243, 1),
               border: BoxBorder.all(width: 8, color: Colors.white),
               borderRadius: BorderRadius.circular(30),
             ),
             child: Center(
               child: Text(
                 name,
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: Colors.white),
               ),
             ),
           ),

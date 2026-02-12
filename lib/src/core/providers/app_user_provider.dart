@@ -9,7 +9,7 @@ final userRepositoryProvider = Provider<AppUserRepository>((ref) {
   return AppUserRepository(CoreService(), authRepository);
 });
 
-final currentUserDataProvider = StreamProvider<AppUser?>((ref) {
+final currentUserDataProvider = StreamProvider.autoDispose<AppUser?>((ref) {
   final repository = ref.watch(userRepositoryProvider);
   return repository.streamCurrentAppUserData();
 });

@@ -7,7 +7,7 @@ import 'package:study_flash/src/core/repositories/charts_repository.dart';
 // ____________________
 //
 
-final chartsRepositoryProvider = Provider<ChartsRepository>((ref) {
+final chartsRepositoryProvider = Provider.autoDispose<ChartsRepository>((ref) {
   final authRepo = ref.watch(authRepositoryProvider);
   return ChartsRepository(userId: authRepo.currentUser?.uid ?? '');
 });
@@ -16,14 +16,14 @@ final chartsRepositoryProvider = Provider<ChartsRepository>((ref) {
 // ____________________
 //
 
-final allFlashcardsOfUser = FutureProvider<List<Flashcard>>((ref) async {
+final allFlashcardsOfUser = FutureProvider.autoDispose<List<Flashcard>>((ref) async {
   final repository = ref.watch(chartsRepositoryProvider);
   return repository.getAllFlashcardsOfUser();
 });
 
 //__
 //
-final allCountedCards = Provider<AsyncValue<int>>((ref) {
+final allCountedCards = Provider.autoDispose<AsyncValue<int>>((ref) {
   final asyncCards = ref.watch(allFlashcardsOfUser);
   return asyncCards.whenData((cards) {
     return cards.length;
@@ -34,7 +34,7 @@ final allCountedCards = Provider<AsyncValue<int>>((ref) {
 // ____________________
 //
 
-final highRatedCards = Provider<AsyncValue<int>>((ref) {
+final highRatedCards = Provider.autoDispose<AsyncValue<int>>((ref) {
   final asyncCards = ref.watch(allFlashcardsOfUser);
   return asyncCards.whenData((cards) {
     return cards.where((card) => card.rating > 3).length;
@@ -45,7 +45,7 @@ final highRatedCards = Provider<AsyncValue<int>>((ref) {
 // ____________________
 //
 
-final lowRatedCards = Provider<AsyncValue<int>>((ref) {
+final lowRatedCards = Provider.autoDispose<AsyncValue<int>>((ref) {
   final asyncCards = ref.watch(allFlashcardsOfUser);
   return asyncCards.whenData((cards) {
     return cards.where((card) => card.rating < 4).length;
@@ -56,7 +56,7 @@ final lowRatedCards = Provider<AsyncValue<int>>((ref) {
 // ____________________
 //
 
-final statsPercentage = Provider<AsyncValue<List<double>>>((ref) {
+final statsPercentage = Provider.autoDispose<AsyncValue<List<double>>>((ref) {
   final asyncHigh = ref.watch(highRatedCards);
   final asyncLow = ref.watch(lowRatedCards);
 
